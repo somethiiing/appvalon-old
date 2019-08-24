@@ -43,6 +43,11 @@ const createRoom = (state, settings) => {
   return { status: 'ROOM_CREATED', state };
 };
 
+const joinRoom = (state, user, room) => {
+  state.rooms[room].players.push(user);
+  return { status: 'JOIN_ROOM', state };
+}
 
 
-module.exports = { createUser, createRoom };
+
+module.exports = { createUser, createRoom, joinRoom };

@@ -7,6 +7,11 @@ const app = express();
 const server = app.listen(port);
 const io = require('socket.io').listen(server);
 
+let serverState = {
+  rooms: {},
+  players: {}
+}
+
 app
   .use(cors())
   .use(bodyParser.urlencoded({ extended: false }))
@@ -22,6 +27,8 @@ io.on('connection', socket => {
   socket.on('disconnect', testdata => {
     console.log(socket, testdata, 'user disconnected')
   });
+
+  socket.on('fruitcup', data => {console.log('i love fruit', data)})
 
 });
 

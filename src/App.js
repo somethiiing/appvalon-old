@@ -14,10 +14,11 @@ class App extends React.Component {
   componentDidMount() {
     socket = io('http://localhost:5000');
 
-
   }
 
   render() {
+    window.emit = (action, data) => socket.emit(action, data);
+
     return (
       <div>home div</div>
     );
