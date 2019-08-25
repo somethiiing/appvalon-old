@@ -2,6 +2,7 @@ import React from 'react';
 import io from 'socket.io-client';
 
 import './App.css';
+import NameInputComponent from './components/NameInput';
 
 let socket;
 
@@ -20,7 +21,8 @@ class App extends React.Component {
     window.emit = (action, data) => socket.emit(action, data);
 
     return (
-      <div>home div</div>
+      <div class="app"> <NameInputComponent/></div>
+     
     );
   }
 }
