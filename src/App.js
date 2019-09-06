@@ -13,7 +13,7 @@ class App extends React.Component {
 
   componentDidMount() {
     socket = io('http://localhost:5000');
-
+    socket.on('', data => console.log(data));
   }
 
   render() {
