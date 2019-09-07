@@ -1,7 +1,5 @@
 const { shuffle } = require('./otherUtils');
 
-const proposedTeamDisplayResultTimer = 15000;
-
 const gameInstantiation = (state, room) => {
   let { players } = state.rooms[room];
   let kingOrder = shuffle(players.slice(0));
@@ -80,19 +78,22 @@ const submitProposedTeamVote = (state, { room = '' }) => {
 const handlePostProposedTeamVote = (state, room, voteDecision) => {
   let roomData;
   if (voteDecision === 'APPROVED') {
+    status = 'START_MISSION_VOTING';
     roomData = {
       ...state.rooms[room],
-      status: 'MISSION_VOTING'
+      status
     };
   } else {
+    status = 'START_PROPOSING_TEAM';
     roomData = {
       ...state.rooms[room],
-      status: 'PROPOSING_TEAM',
+      status,
       missionNum: state.rooms[room].missionNum + 1
     };
   }
+  state.rooms[room] = roomData;
 
-  return { status: 'PROPOSED_TEAM_RESULTS_DISPLAY_FINISH', state };
+  return { status, state };
 }
 
 

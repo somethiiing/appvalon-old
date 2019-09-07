@@ -41,7 +41,7 @@ const createRoom = (state, settings) => {
 
   state.rooms[roomName] = room;
 
-  return { status: 'ROOM_CREATED', roomName, state };
+  return { status: 'ROOM_CREATED', room: roomName, state };
 };
 
 const joinRoom = (state, user, room) => {
