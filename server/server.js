@@ -17,8 +17,8 @@ let serverState = {
     banana: {
       "roomName": "banana",
       "roomOwner": "wilson",
-      "status": "WAITING_FOR_PLAYERS",
-      "missionNum": 0,
+      "status": "PROPOSED_TEAM_VOTING",
+      "missionNum": 1,
       "createdAt": 1567419413701,
       "timer": null,
       "playerCount": 5,
@@ -27,7 +27,8 @@ let serverState = {
         "wilson",
         "red",
         "black",
-        "blue"
+        "blue",
+        "white"
       ],
       "boardInfo": {
         "playerCount": 5,
@@ -47,12 +48,27 @@ let serverState = {
         "mission4Size": 3,
         "mission5Size": 3
       },
-      "kingOrder": [],
+      "kingOrder": [
+        "wilson",
+        "white",
+        "red",
+        "black",
+        "blue"
+      ],
       "rejectedMissionCount": 0,
       "nextHammer": "",
-      "proposedTeam": [],
-      "proposedTeamVote": {},
-      "proposedTeamVoteResults": '',
+      "proposedTeam": [
+        "white",
+        "blue"
+      ],
+      "proposedTeamVote": {
+        "white": "REJECT",
+        "blue": "REJECT",
+        "black": "REJECT",
+        "red": "REJECT",
+        "wilson": "REJECT"
+      },
+      "proposedTeamVoteResults": "",
       "questVote": {},
       "missionsData": [
         {
@@ -75,11 +91,11 @@ let serverState = {
     }
   },
   players: {
-    // wilson: {user: 'wilson'},
-    // white: {user: 'white'},
-    // blue: {user: 'blue'},
-    // black: {user: 'black'},
-    // red: {user: 'red'}
+    wilson: {user: 'wilson'},
+    white: {user: 'white'},
+    blue: {user: 'blue'},
+    black: {user: 'black'},
+    red: {user: 'red'}
   }
 }
 
@@ -100,74 +116,85 @@ io.on('connection', socket => {
   });
 
   socket.on('CREATE_USER', user => {
+    // user: 'name'
     const { status, state } = createUser(serverState, user);
-    socket.broadcast.emit(status, state.players);
+    io.emit(status, state.players);
     console.log(status, JSON.stringify(serverState, null, 2));
     // USER_EXISTS, USER_CREATED
   });
 
   socket.on('CREATE_ROOM', roomSettings => {
+    // settings: { numPeople: number, isLancelot: boolean, board: number, roomOwner: string }
     const { status, room, state } = createRoom(serverState, roomSettings);
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));
     // ROOMS_FULL, ROOM_CREATED
   });
 
   socket.on('JOIN_ROOM', data => {
+    // data: { room: 'roomname', user: 'username' }
     const { user, room } = data;
     const { status, state } = joinRoom(serverState, user, room);
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));
     // if room count === numPlayers => start game for room
     // GAME_START, JOIN_ROOM_SUCCESS, ROOM_FULL
   });
 
   socket.on('SUBMIT_TEAM_PROPOSAL', data => {
+    // data: { room: 'roomname', nominationArr: [name1, name2, name3] }
     const { room, nominationArr } = data;
     const { status, state } = submitTeamProposal(serverState, { room, nominationArr });
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));
     // TEAM_PROPOSED
   });
 
   socket.on('VOTE_FOR_PROPOSED_TEAM', data => {
+    // data: { room: 'roomname', player: 'playername', vote: 'REJECT' or 'APPROVE' }
     const { room, player, vote } = data;
     const { status, state } = proposedTeamVoting(serverState, { room, player, vote });
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));
     // PROPOSED_TEAM_VOTE_REGISTERED
   });
 
   socket.on('FINALIZE_PROPOSED_TEAM_VOTING', data => {
+    // data: { room: 'roomname' }
     const { room } = data;
     const { status, state } = finalizeProposedTeamVoting(serverState, { room });
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));
     // PROPOSED_TEAM_VOTE_COUNTDOWN, NOT_ENOUGH_VOTES
   });
 
   socket.on('SUBMIT_PROPOSED_TEAM_VOTE', data => {
+    // data: { room: 'roomname' }
     const { room } = data;
     const { status, state } = submitProposedTeamVote(serverState, { room });
-    socket.broadcast.emit(status, state[room]);
+    io.emit(status, state.rooms[room]);
     setTimeout( () => {
       const postProposedTeamVoteData = handlePostProposedTeamVote(state, room, serverState.rooms[room].proposedTeamVoteResults);
-      socket.broadcast.emit(postProposedTeamVoteData.status, state[room]);
+      io.emit(postProposedTeamVoteData.status, state.rooms[room]);
     }, proposedTeamDisplayResultTime)
     console.log(status, JSON.stringify(serverState, null, 2));
     // START_MISSION_VOTING, START_PROPOSING_TEAM
   });
 
   socket.on('roomState', data => {
+    const { room } = data;
+    io.emit('roomState', serverState.rooms[room]);
     console.log(JSON.stringify(serverState.rooms[data.room], null, 2));
   });
 
   socket.on('fullState', () => {
+    io.emit('fullState', serverState);
     console.log(JSON.stringify(serverState, null, 2));
   });
 
   socket.on('CLEAR_STATE', () => {
     serverState = {  rooms: {}, players: {} };
+    io.emit('CLEAR_STATE', serverState)
     console.log(status, JSON.stringify(serverState, null, 2));
   });
 

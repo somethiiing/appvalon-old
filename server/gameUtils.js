@@ -32,7 +32,7 @@ const proposedTeamVoting = (state, {room = '', player = '', vote = 'REJECT'}) =>
   // vote either SUCCESS or REJECT
   const voteData = {
     ...state.rooms[room].proposedTeamVote,
-    player: vote
+    [player]: vote
   }
 
   state.rooms[room].proposedTeamVote = voteData;
@@ -41,7 +41,7 @@ const proposedTeamVoting = (state, {room = '', player = '', vote = 'REJECT'}) =>
 };
 
 const finalizeProposedTeamVoting = (state, { room = '' }) => {
-  const voteCount = Object.keys(state.rooms[room].proposedTeamVote);
+  const voteCount = Object.keys(state.rooms[room].proposedTeamVote).length;
   if (voteCount === state.rooms[room].players.length) {
     state.rooms[room].status = 'PROPOSED_TEAM_VOTE_COUNTDOWN';
     return { status: 'PROPOSED_TEAM_VOTE_COUNTDOWN', state };
