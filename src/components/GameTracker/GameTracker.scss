@@ -1,0 +1,40 @@
+@import '../../stylesheets/colors.scss';
+
+$missionNumberSize: 30px;
+
+.GameTracker {
+  display: flex;
+  align-items: center;
+}
+
+.GameTracker__missionProgress {
+  display: flex;
+}
+
+.GameTracker__missionNumber {
+  line-height: $missionNumberSize;
+  height: $missionNumberSize;
+  width: $missionNumberSize;
+  border: 1px solid $color-black;
+  margin: 5px;
+  border-radius: 50%;
+  text-align: center;
+}
+
+.GameTracker__missionNumber--doubleFail {
+  border: 2px solid $color-black;
+}
+
+.GameTracker__missionNumber--active {
+  background-color: pink;
+}
+
+.GameTracker__missionNumber--success {
+  background-color: $color-success;
+  color: $color-white;
+}
+
+.GameTracker__missionNumber--fail {
+  background-color: $color-fail;
+  color: $color-white;
+}

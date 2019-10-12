@@ -1,6 +1,9 @@
 import React from 'react';
 import io from 'socket.io-client';
 
+import Game from './containers/Game';
+
+import './stylesheets/normalize.css';
 import './App.css';
 
 let socket;
@@ -20,7 +23,7 @@ class App extends React.Component {
     window.emit = (action, data) => socket.emit(action, data);
 
     return (
-      <div>home div</div>
+      <Game/>
     );
   }
 }
