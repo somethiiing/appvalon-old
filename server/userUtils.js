@@ -1,3 +1,4 @@
+const { gameInstantiation } = require('./gameUtils');
 const { defaultRoomObject, getRandomFruit, boards } = require('./gameConstants');
 
 const fakeRoomSettings = {
@@ -21,7 +22,7 @@ const createUser = (state, user) => {
 };
 
 const createRoom = (state, settings) => {
-  // settings: { numPeople: Number, isLancelot: boolean, board: number, roomOwner: string }
+  // settings: { numPeople: number, isLancelot: boolean, board: number, roomOwner: string }
   const roomName = getRandomFruit();
   if (roomName === null) { return { status: 'ROOMS_FULL', state } };
 
@@ -40,12 +41,21 @@ const createRoom = (state, settings) => {
 
   state.rooms[roomName] = room;
 
-  return { status: 'ROOM_CREATED', state };
+  return { status: 'ROOM_CREATED', room: roomName, state };
 };
 
 const joinRoom = (state, user, room) => {
-  state.rooms[room].players.push(user);
-  return { status: 'JOIN_ROOM', state };
+  // todo: stop adding of extra users
+  // return ROOM_FULL
+  let roomData = state.rooms[room];
+  roomData.players.push(user);
+  state.rooms[room] = roomData;
+  if (roomData.playerCount === roomData.players.length) {
+    let instantiatedGame = gameInstantiation(state, room);
+    state.rooms[room] = instantiatedGame.roomData;
+    return { status: 'GAME_START', state };
+  }
+  return { status: 'JOIN_ROOM_SUCCESS', state };
 }
 
 
