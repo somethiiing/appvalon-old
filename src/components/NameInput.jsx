@@ -1,36 +1,43 @@
 import React from 'react';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
 
 
-function NameInput() {
+const useStyles = makeStyles(theme => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+  },
+  dense: {
+    marginTop: theme.spacing(2),
+  },
+  menu: {
+    width: 200,
+  },
+}));
+
+function NameInput(props) {
+
+  const classes = useStyles();
+
+
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'. Built with '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Material-UI.
-      </Link>
-    </Typography>
+    <TextField
+      required
+      id="name"
+      label="Name"
+      placeholder="Your real name"
+      className={classes.textField}
+      value={props.name}
+      onChange={props.handleChange('name')}
+      margin="normal"
+      variant="outlined"
+    />
   );
 }
 
-export default function NameInputComponent() {
-  return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Test avalon app
-        </Typography>
-       
-        <NameInput />
-      </Box>
-    </Container>
-  );
-}
+export default NameInput;
