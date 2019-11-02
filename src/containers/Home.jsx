@@ -33,7 +33,7 @@ function Home(props) {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.container}>
       <NameInput name={props.userName} handleChange={props.handleNameChange}/>
       <Button variant="contained" color="primary" className={classes.button}
         onClick={() => {props.setCreatingRoom(true); ApiHelpers.createUser(props.userName)}}>

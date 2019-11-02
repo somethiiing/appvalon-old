@@ -60,8 +60,13 @@ class App extends React.Component {
     window.test = () => ApiHelpers.createRoom({ numPeople: 5, isLancelot: false, board: 5, roomOwner: 'wilson' });
 
     switch (this.state.status) {
-      case '': return (<Home userName={this.state.userName} handleNameChange={this.handleNameChange} setCreatingRoom={this.setCreatingRoom}/>);
-      case 'USER_CREATED': return this.state.creatingRoom ? (<CreateRoom />) : (<JoinRoom userName={this.state.userName}/>);
+      case 'USER_CREATED':
+        return this.state.creatingRoom
+          ? (<CreateRoom userName={this.state.userName} />)
+          : (<JoinRoom userName={this.state.userName}/>);
+      case '':
+      default:
+        return (<Home userName={this.state.userName} handleNameChange={this.handleNameChange} setCreatingRoom={this.setCreatingRoom}/>);
     }
   }
 }

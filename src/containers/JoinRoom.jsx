@@ -35,7 +35,7 @@ function JoinRoom(props) {
 
   // TODO add choose your role
   return (
-    <div>
+    <div className={classes.container}>
       <h2>Choose a Room to Join</h2>
       <RoomList userName={props.userName} />
     </div>
