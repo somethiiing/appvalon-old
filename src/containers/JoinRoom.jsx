@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import RoomList from '../components/RoomList';
+import RoomList from '../components/JoinRoom/RoomList';
 import ApiHelpers from '../helpers/api';
 
 const useStyles = makeStyles(theme => ({

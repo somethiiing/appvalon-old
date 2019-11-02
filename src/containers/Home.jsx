@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
-import NameInput from '../components/NameInput';
+import NameInput from '../components/Home/NameInput';
 import ApiHelpers from '../helpers/api';
 
 const useStyles = makeStyles(theme => ({
