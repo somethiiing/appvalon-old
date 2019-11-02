@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
 import NameInput from '../components/NameInput';
+import APIHelpers from '../helpers/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -41,10 +42,12 @@ function Home() {
   return (
     <div>
       <NameInput name={values.name} handleChange={handleChange}/>
-      <Button variant="contained" color="primary" className={classes.button}>
+      // TODO: also navigate to room creation on click
+      <Button variant="contained" color="primary" className={classes.button} onClick={() => {APIHelpers.createUser(values.name)}}>
           Create Room
       </Button>
-      <Button variant="contained" color="primary" className={classes.button}>
+      // TODO: also navigate to room joining on click
+      <Button variant="contained" color="primary" className={classes.button} onClick={() => {APIHelpers.createUser(values.name)}}>
           Join Room
       </Button>
     </div>

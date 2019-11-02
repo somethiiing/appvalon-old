@@ -5,6 +5,8 @@ import './App.css';
 
 import Home from './containers/Home';
 
+import APIHelpers from './helpers/api';
+
 let socket;
 
 class App extends React.Component {
