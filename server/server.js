@@ -192,6 +192,11 @@ io.on('connection', socket => {
     console.log(JSON.stringify(serverState, null, 2));
   });
 
+  socket.on('roomList', () => {
+    io.emit('roomList', Object.keys(serverState.rooms));
+    console.log(JSON.stringify(Object.keys(serverState.rooms), null, 2));
+  });
+
   socket.on('CLEAR_STATE', () => {
     serverState = {  rooms: {}, players: {} };
     io.emit('CLEAR_STATE', serverState)

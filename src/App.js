@@ -4,8 +4,10 @@ import io from 'socket.io-client';
 import './App.css';
 
 import Home from './containers/Home';
+import JoinRoom from './containers/JoinRoom';
+import CreateRoom from './containers/CreateRoom';
 
-import APIHelpers from './helpers/api';
+import ApiHelpers from './helpers/api';
 
 let socket;
 
@@ -19,7 +21,7 @@ class App extends React.Component {
     socket = io('http://localhost:5000');
 
     socket.on('USER_EXISTS', data => console.log(data, '\nUSER_EXISTS\n', JSON.stringify(data, null, 2)));
-    socket.on('USER_CREATED', data => console.log(data, '\nUSER_CREATED\n', JSON.stringify(data, null, 2)));
+    socket.on('USER_CREATED', data => {this.setState({status: 'USER_CREATED'}); console.log(data, '\nUSER_CREATED\n', JSON.stringify(data, null, 2))});
     socket.on('ROOMS_FULL', data => console.log(data, '\nROOMS_FULL\n', JSON.stringify(data, null, 2)));
     socket.on('ROOM_CREATED', data => console.log(data, '\nROOM_CREATED\n', JSON.stringify(data, null, 2)));
     socket.on('GAME_START', data => console.log(data, '\nGAME_START\n', JSON.stringify(data, null, 2)));
@@ -33,16 +35,34 @@ class App extends React.Component {
     socket.on('START_PROPOSING_TEAM', data => console.log(data, '\nSTART_PROPOSING_TEAM\n', JSON.stringify(data, null, 2)));
 
     socket.on('roomState', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
+    socket.on('roomList', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
     socket.on('fullState', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
     socket.on('CLEAR_STATE', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
   }
 
+  // TODO persist state through refresh or fetch from server on load
+  state = {
+    status: '',
+    userName: '',
+    creatingRoom: false
+  }
+
+  handleNameChange = name => event => {
+    this.setState({userName: event.target.value });
+  };
+
+  setCreatingRoom = (isCreatingRoom) => {
+    this.setState({creatingRoom: isCreatingRoom});
+  }
+
   render() {
     window.emit = (action, data) => socket.emit(action, data);
+    window.test = () => ApiHelpers.createRoom({ numPeople: 5, isLancelot: false, board: 5, roomOwner: 'wilson' });
 
-    return (
-      <Home />
-    );
+    switch (this.state.status) {
+      case '': return (<Home userName={this.state.userName} handleNameChange={this.handleNameChange} setCreatingRoom={this.setCreatingRoom}/>);
+      case 'USER_CREATED': return this.state.creatingRoom ? (<CreateRoom />) : (<JoinRoom userName={this.state.userName}/>);
+    }
   }
 }
 
