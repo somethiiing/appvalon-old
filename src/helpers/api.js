@@ -13,6 +13,10 @@ export const joinRoom = (user, room) => {
   socket.emit('JOIN_ROOM', { user, room });
 }
 
+export const submitTeamProposal = (roomName, proposedTeam) => {
+  socket.emit('SUBMIT_TEAM_PROPOSAL', {room: roomName, nominationArr: proposedTeam})
+}
+
 export const getRoomList = () => {
   socket.emit('roomList');
 }
@@ -26,6 +30,7 @@ export default {
   createUser,
   createRoom,
   joinRoom,
+  submitTeamProposal,
   getRoomList,
   getFullState
 }

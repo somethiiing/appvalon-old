@@ -6,6 +6,7 @@ import './App.css';
 import Home from './containers/Home';
 import JoinRoom from './containers/JoinRoom';
 import CreateRoom from './containers/CreateRoom';
+import ProposeTeam from './containers/ProposeTeam';
 
 import ApiHelpers from './helpers/api';
 
@@ -20,53 +21,66 @@ class App extends React.Component {
   componentDidMount() {
     socket = io('http://localhost:5000');
 
-    socket.on('USER_EXISTS', data => console.log(data, '\nUSER_EXISTS\n', JSON.stringify(data, null, 2)));
-    socket.on('USER_CREATED', data => {this.setState({status: 'USER_CREATED'}); console.log(data, '\nUSER_CREATED\n', JSON.stringify(data, null, 2))});
-    socket.on('ROOMS_FULL', data => console.log(data, '\nROOMS_FULL\n', JSON.stringify(data, null, 2)));
-    socket.on('ROOM_CREATED', data => console.log(data, '\nROOM_CREATED\n', JSON.stringify(data, null, 2)));
-    socket.on('GAME_START', data => console.log(data, '\nGAME_START\n', JSON.stringify(data, null, 2)));
-    socket.on('JOIN_ROOM_SUCCESS', data => console.log(data, '\nJOIN_ROOM_SUCCESS\n', JSON.stringify(data, null, 2)));
-    socket.on('ROOM_FULL', data => console.log(data, '\nROOM_FULL\n', JSON.stringify(data, null, 2)));
-    socket.on('TEAM_PROPOSED', data => console.log(data, '\nTEAM_PROPOSED\n', JSON.stringify(data, null, 2)));
-    socket.on('PROPOSED_TEAM_VOTE_REGISTERED', data => console.log(data, '\nPROPOSED_TEAM_VOTE_REGISTERED\n', JSON.stringify(data, null, 2)));
-    socket.on('PROPOSED_TEAM_VOTE_COUNTDOWN', data => console.log(data, '\nPROPOSED_TEAM_VOTE_COUNTDOWN\n', JSON.stringify(data, null, 2)));
-    socket.on('NOT_ENOUGH_VOTES', data => console.log(data, '\nNOT_ENOUGH_VOTES\n', JSON.stringify(data, null, 2)));
-    socket.on('START_MISSION_VOTING', data => console.log(data, '\nSTART_MISSION_VOTING\n', JSON.stringify(data, null, 2)));
-    socket.on('START_PROPOSING_TEAM', data => console.log(data, '\nSTART_PROPOSING_TEAM\n', JSON.stringify(data, null, 2)));
+    socket.on('USER_EXISTS', data => {this.setState({status: 'USER_EXISTS'}); this.logStatusData('USER_EXISTS', data)});
+    socket.on('USER_CREATED', data => {this.setState({status: 'USER_CREATED'}); this.logStatusData('USER_CREATED', data)});
+    socket.on('ROOMS_FULL', data => {this.setState({status: 'ROOMS_FULL'}); this.logStatusData('ROOMS_FULL', data)});
+    socket.on('ROOM_CREATED', data => {this.setState({status: 'ROOM_CREATED', roomData: data}); this.logStatusData('ROOM_CREATED', data)});
+    socket.on('GAME_START', data => {this.setState({status: 'GAME_START', roomData: data});this.logStatusData('GAME_START', data)});
+    socket.on('JOIN_ROOM_SUCCESS', data => {this.setState({status: 'JOIN_ROOM_SUCCESS', roomData: data}); this.logStatusData('JOIN_ROOM_SUCCESS', data)});
+    socket.on('ROOM_FULL', data => {this.setState({status: 'ROOM_FULL'}); this.logStatusData('ROOM_FULL', data)});
+    socket.on('TEAM_PROPOSED', data => {this.setState({status: 'TEAM_PROPOSED'}); this.logStatusData('TEAM_PROPOSED', data)});
+    socket.on('PROPOSED_TEAM_VOTE_REGISTERED', data => {this.setState({status: 'PROPOSED_TEAM_VOTE_REGISTERED'}); this.logStatusData('PROPOSED_TEAM_VOTE_REGISTERED', data)});
+    socket.on('PROPOSED_TEAM_VOTE_COUNTDOWN', data => {this.setState({status: 'PROPOSED_TEAM_VOTE_COUNTDOWN'}); this.logStatusData('PROPOSED_TEAM_VOTE_COUNTDOWN', data)});
+    socket.on('NOT_ENOUGH_VOTES', data => {this.setState({status: 'NOT_ENOUGH_VOTES'}); this.logStatusData('NOT_ENOUGH_VOTES', data)});
+    socket.on('START_MISSION_VOTING', data => {this.setState({status: 'START_MISSION_VOTING'}); this.logStatusData('START_MISSION_VOTING', data)});
+    socket.on('START_PROPOSING_TEAM', data => {this.setState({status: 'START_PROPOSING_TEAM'}); this.logStatusData('START_PROPOSING_TEAM', data)});
 
-    socket.on('roomState', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
-    socket.on('roomList', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
-    socket.on('fullState', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
-    socket.on('CLEAR_STATE', data => console.log(data, '\n\n', JSON.stringify(data, null, 2)));
+    socket.on('roomState', data => this.logStatusData('', data));
+    socket.on('roomList', data => this.logStatusData('', data));
+    socket.on('fullState', data => this.logStatusData('', data));
+    socket.on('CLEAR_STATE', data => this.logStatusData('', data));
   }
 
   // TODO persist state through refresh or fetch from server on load
   state = {
     status: '',
     userName: '',
-    creatingRoom: false
+    roomData: '',
+    isCreatingRoom: false,
+    serverState: {}
+  }
+
+  logStatusData = (status, data) => {
+    console.log(data, `\n${status}\n`, JSON.stringify(data, null, 2));
   }
 
   handleNameChange = name => event => {
     this.setState({userName: event.target.value });
   };
 
-  setCreatingRoom = (isCreatingRoom) => {
-    this.setState({creatingRoom: isCreatingRoom});
+  setIsCreatingRoom = (isCreatingRoom) => {
+    this.setState({isCreatingRoom: isCreatingRoom});
   }
 
   render() {
-    window.emit = (action, data) => socket.emit(action, data);
-    window.test = () => ApiHelpers.createRoom({ numPeople: 5, isLancelot: false, board: 5, roomOwner: 'wilson' });
+    const {status, userName, roomData, isCreatingRoom, serverState} = this.state;
 
-    switch (this.state.status) {
+    window.emit = (action, data) => socket.emit(action, data);
+    window.test = (name) => ApiHelpers.joinRoom(name, roomData.roomName);
+
+    switch (status) {
       case 'USER_CREATED':
-        return this.state.creatingRoom
-          ? (<CreateRoom userName={this.state.userName} />)
-          : (<JoinRoom userName={this.state.userName}/>);
+        return isCreatingRoom
+          ? (<CreateRoom userName={userName} />)
+          : (<JoinRoom userName={userName}/>);
+      case 'GAME_START':
+      case 'START_PROPOSING_TEAM':
+        return userName === roomData.kingOrder[0]
+          ? (<ProposeTeam roomName={roomData.roomName} playerList={roomData.kingOrder} teamSize={roomData.boardInfo[`mission${roomData.missionNum}Size`]}/>)
+          : (<div>view proposed team</div>);
       case '':
       default:
-        return (<Home userName={this.state.userName} handleNameChange={this.handleNameChange} setCreatingRoom={this.setCreatingRoom}/>);
+        return (<Home userName={userName} handleNameChange={this.handleNameChange} setIsCreatingRoom={this.setIsCreatingRoom}/>);
     }
   }
 }

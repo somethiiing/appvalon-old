@@ -36,7 +36,7 @@ function Home(props) {
     <div className={classes.container}>
       <NameInput name={props.userName} handleChange={props.handleNameChange}/>
       <Button variant="contained" color="primary" className={classes.button}
-        onClick={() => {props.setCreatingRoom(true); ApiHelpers.createUser(props.userName)}}>
+        onClick={() => {props.setIsCreatingRoom(true); ApiHelpers.createUser(props.userName)}}>
           Create Room
       </Button>
       <Button variant="contained" color="primary" className={classes.button}
