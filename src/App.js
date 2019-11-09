@@ -71,10 +71,10 @@ let fakeRoomData = {
   "questVote": {},
   "missionsData": [
     {
-      "status": "incomplete"
+      "status": "success"
     },
     {
-      "status": "incomplete"
+      "status": "fail"
     },
     {
       "status": "incomplete"
