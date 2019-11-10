@@ -112,10 +112,10 @@ class App extends React.Component {
     socket.on('START_MISSION_VOTING', data => {this.setState({status: 'START_MISSION_VOTING'}); this.logStatusData('START_MISSION_VOTING', data)});
     socket.on('START_PROPOSING_TEAM', data => {this.setState({status: 'START_PROPOSING_TEAM'}); this.logStatusData('START_PROPOSING_TEAM', data)});
 
-    socket.on('roomState', data => this.logStatusData('', data));
-    socket.on('roomList', data => this.logStatusData('', data));
-    socket.on('fullState', data => this.logStatusData('', data));
-    socket.on('CLEAR_STATE', data => this.logStatusData('', data));
+    socket.on('GOT_ROOM_STATE', data => this.logStatusData('', data));
+    socket.on('GOT_ROOM_LIST', data => this.logStatusData('', data));
+    socket.on('GOT_FULL_STATE', data => this.logStatusData('', data));
+    socket.on('STATE_CLEARED', data => this.logStatusData('', data));
   }
 
   // TODO persist state through refresh or fetch from server on load

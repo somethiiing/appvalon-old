@@ -181,26 +181,25 @@ io.on('connection', socket => {
     // START_MISSION_VOTING, START_PROPOSING_TEAM
   });
 
-  socket.on('roomState', data => {
-    const { room } = data;
-    io.emit('roomState', serverState.rooms[room]);
-    console.log(JSON.stringify(serverState.rooms[data.room], null, 2));
-  });
-
-  socket.on('fullState', () => {
-    io.emit('fullState', serverState);
-    console.log(JSON.stringify(serverState, null, 2));
-  });
-
-  socket.on('roomList', () => {
-    io.emit('roomList', Object.keys(serverState.rooms));
+  socket.on('ROOM_LIST', () => {
+    io.emit('GOT_ROOM_LIST', Object.keys(serverState.rooms));
     console.log(JSON.stringify(Object.keys(serverState.rooms), null, 2));
+  });
+
+  socket.on('ROOM_STATE', room => {
+    io.emit('GOT_ROOM_STATE', serverState.rooms[room]);
+    console.log(JSON.stringify(serverState.rooms[room], null, 2));
+  });
+
+  socket.on('FULL_STATE', () => {
+    io.emit('GOT_FULL_STATE', serverState);
+    console.log(JSON.stringify(serverState, null, 2));
   });
 
   socket.on('CLEAR_STATE', () => {
     serverState = {  rooms: {}, players: {} };
-    io.emit('CLEAR_STATE', serverState)
-    console.log(status, JSON.stringify(serverState, null, 2));
+    io.emit('STATE_CLEARED', serverState)
+    console.log('STATE_CLEARED', JSON.stringify(serverState, null, 2));
   });
 
 });
