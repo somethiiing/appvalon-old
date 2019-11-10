@@ -79,11 +79,11 @@ class Provider extends React.Component {
     }
 
     getRoomList = () => {
-      socket.emit('roomList');
+      socket.emit('ROOM_LIST');
     };
 
     getFullState = () => {
-      socket.emit('fullState');
+      socket.emit('FULL_STATE');
     };
 
     render() {
@@ -103,6 +103,7 @@ class Provider extends React.Component {
                   setGlobalState: this.setGlobalState,
                   handleNameChange: this.handleNameChange,
                   toggleShouldShowGameBoard: this.toggleShouldShowGameBoard,
+                  socket: socket,
                   createUser: this.createUser,
                   createRoom: this.createRoom,
                   joinRoom: this.joinRoom,
