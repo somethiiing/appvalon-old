@@ -88,7 +88,7 @@ const handlePostProposedTeamVote = (state, room, voteDecision) => {
     roomData = {
       ...state.rooms[room],
       status,
-      missionNum: state.rooms[room].missionNum + 1
+      rejectedMissionCount: state.rooms[room].rejectedMissionCount + 1
     };
   }
   state.rooms[room] = roomData;

@@ -48,6 +48,11 @@ const joinRoom = (state, user, room) => {
   // todo: stop adding of extra users
   // return ROOM_FULL
   let roomData = state.rooms[room];
+
+  if (!roomData) {
+    return { status: 'JOIN_ROOM_ROOM_NOT_FOUND', state };
+  }
+
   roomData.players.push(user);
   state.rooms[room] = roomData;
   if (roomData.playerCount === roomData.players.length) {
