@@ -23,7 +23,6 @@ function NumPlayersSelect(props) {
       <FormControl variant="filled" className={classes.formControl}>
         <InputLabel htmlFor="numPeople">Number of Players</InputLabel>
         <NativeSelect
-          native
           value={props.numPeople}
           onChange={props.handleChange('numPeople')}
           inputProps={{

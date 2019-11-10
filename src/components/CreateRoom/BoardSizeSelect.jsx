@@ -23,7 +23,6 @@ function BoardSizeSelect(props) {
       <FormControl variant="filled" className={classes.formControl}>
         <InputLabel htmlFor="numPeople">Board Size</InputLabel>
         <NativeSelect
-          native
           value={props.board}
           onChange={props.handleChange('board')}
           inputProps={{

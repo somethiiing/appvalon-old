@@ -7,7 +7,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 
-import ApiHelpers from '../helpers/api';
+import Context from '../Context';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,7 +26,7 @@ function ProposeTeam(props) {
 
   React.useEffect(() => {
     mapPropsToState(props);
-  }, [props]);
+  });
 
   const mapPropsToState = (props) => {
     let newState = {};
@@ -45,23 +45,27 @@ function ProposeTeam(props) {
   const error = getProposedTeam().length !== props.teamSize;
 
   return (
-    <div className={classes.container}>
-      <h2>Choose Your Team</h2>
-      <FormControl required error={error} component="fieldset" className={classes.formControl}>
-        <FormLabel component="legend">{`Choose ${props.teamSize} people for your mission`}</FormLabel>
-        <FormGroup>
-          {props.playerList.map( player =>
-            (<FormControlLabel
-              control={<Checkbox checked={state[player] || false} onChange={handleChange(player)} value={player} />}
-              label={player} key={player}
-            />))}
-        </FormGroup>
-      </FormControl>
-      <Button variant="contained" color="primary" className={classes.button} disabled={error}
-        onClick={() => {ApiHelpers.submitTeamProposal(props.roomName, getProposedTeam())}}>
-          Finalize Team
-      </Button>
-    </div>
+    <Context.Consumer>
+    {context => (
+      <div className={classes.container}>
+        <h2>Choose Your Team</h2>
+        <FormControl required error={error} component="fieldset" className={classes.formControl}>
+          <FormLabel component="legend">{`Choose ${props.teamSize} people for your mission`}</FormLabel>
+          <FormGroup>
+            {props.playerList.map( player =>
+              (<FormControlLabel
+                control={<Checkbox checked={state[player] || false} onChange={handleChange(player)} value={player} />}
+                label={player} key={player}
+              />))}
+          </FormGroup>
+        </FormControl>
+        <Button variant="contained" color="primary" className={classes.button} disabled={error}
+          onClick={() => {context.submitTeamProposal(context.roomData.roomName, getProposedTeam())}}>
+            Finalize Team
+        </Button>
+      </div>
+    )}
+    </Context.Consumer>
   );
 }
 

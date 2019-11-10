@@ -2,8 +2,8 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 
+import Context from '../Context';
 import NameInput from '../components/Home/NameInput';
-import ApiHelpers from '../helpers/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,17 +33,21 @@ function Home(props) {
   const classes = useStyles();
 
   return (
-    <div className={classes.container}>
-      <NameInput name={props.userName} handleChange={props.handleNameChange}/>
-      <Button variant="contained" color="primary" className={classes.button}
-        onClick={() => {props.setIsCreatingRoom(true); ApiHelpers.createUser(props.userName)}}>
-          Create Room
-      </Button>
-      <Button variant="contained" color="primary" className={classes.button}
-        onClick={() => {ApiHelpers.createUser(props.userName)}}>
-          Join Room
-      </Button>
-    </div>
+    <Context.Consumer>
+    {context => (
+      <div className={classes.container}>
+        <NameInput name={context.userName} handleChange={context.handleNameChange}/>
+        <Button variant="contained" color="primary" className={classes.button}
+          onClick={() => {context.setGlobalState({isCreatingRoom: true}); context.createUser(context.userName)}}>
+            Create Room
+        </Button>
+        <Button variant="contained" color="primary" className={classes.button}
+          onClick={() => {context.createUser(context.userName)}}>
+            Join Room
+        </Button>
+      </div>
+    )}
+    </Context.Consumer>
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
-import ApiHelpers from '../../helpers/api';
+import Context from '../../Context';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -25,9 +25,13 @@ function RoomListItem(props) {
   const classes = useStyles();
 
   return (
-    <button onClick={() => ApiHelpers.joinRoom(props.userName, props.roomName)}>
-      {props.roomName}
-    </button>
+    <Context.Consumer>
+    {context => (
+      <button onClick={() => context.joinRoom(props.userName, props.roomName)}>
+        {props.roomName}
+      </button>
+    )}
+    </Context.Consumer>
   );
 }
 

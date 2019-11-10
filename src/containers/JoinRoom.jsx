@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
+import Context from '../Context';
 import RoomList from '../components/JoinRoom/RoomList';
-import ApiHelpers from '../helpers/api';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -31,14 +31,20 @@ const useStyles = makeStyles(theme => ({
 function JoinRoom(props) {
   const classes = useStyles();
 
-  ApiHelpers.getRoomList();
+  const context = React.useContext(Context);
+
+  context.getRoomList();
 
   // TODO add choose your role
   return (
-    <div className={classes.container}>
-      <h2>Choose a Room to Join</h2>
-      <RoomList userName={props.userName} />
-    </div>
+    <Context.Consumer>
+    {context => (
+      <div className={classes.container}>
+        <h2>Choose a Room to Join</h2>
+        <RoomList userName={context.userName} />
+      </div>
+    )}
+    </Context.Consumer>
   );
 }
 
