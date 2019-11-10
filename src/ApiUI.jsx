@@ -22,6 +22,7 @@ export default class ApiUI extends React.Component {
     this.state = {
       data: '',
       status: '',
+      dispatchedData: {},
       createUser_user: '',
       createRoom_numPeople: 5,
       createRoom_isLancelot: false,
@@ -29,7 +30,17 @@ export default class ApiUI extends React.Component {
       createRoom_roomOwner: '',
       joinRoom_room: '',
       joinRoom_user: '',
-      roomState_room: ''
+      submitProposal_room: '',
+      name_1: '',
+      name_2: '',
+      name_3: '',
+      name_4: '',
+      name_5: '',
+      roomState_room: '',
+      voteForProposedTeam_room: '',
+      voteForProposedTeam_player: '',
+      voteForProposedTeam_vote: false
+
     };
 
     this.handleInputOnChange = this.handleInputOnChange.bind(this);
@@ -38,6 +49,7 @@ export default class ApiUI extends React.Component {
 
     this.createCreateRoomData = this.createCreateRoomData.bind(this);
     this.createJoinRoomData = this.createJoinRoomData.bind(this);
+    this.createSubmitTeamProposalData = this.createSubmitTeamProposalData.bind(this);
   }
 
   componentDidMount() {
@@ -57,11 +69,20 @@ export default class ApiUI extends React.Component {
     socket.on('JOIN_ROOM_ROOM_NOT_FOUND', data => this.setState({status: 'JOIN_ROOM_ROOM_NOT_FOUND', data}) );
     socket.on('ROOM_FULL', data => this.setState({status: 'ROOM_FULL', data}) );
 
+    // SUBMIT_TEAM_PROPSAL
+    socket.on('TEAM_PROPOSED', data => this.setState({status: 'TEAM_PROPOSED', data}));
+
+    //VOTE_FOR_PROPOSED_TEAM
+    socket.on('PROPOSED_TEAM_VOTE_REGISTERED', data => this.setState({status: 'PROPOSED_TEAM_VOTE_REGISTERED', data}));
+
     // UTIL FUNCTIONS
     socket.on('GOT_ROOM_STATE', data => this.setState({status: 'GOT_ROOM_STATE', data}) );
     socket.on('GOT_ROOM_LIST', data => this.setState({status: 'GOT_ROOM_LIST', data}) );
     socket.on('GOT_FULL_STATE', data => this.setState({status: 'GOT_FULL_STATE', data}) );
     socket.on('STATE_CLEARED', data => this.setState({status: 'ROOM_CREATED', data}) );
+
+    //socket.on('SUBMIT_PROPOSED_TEAM_VOTE', data => this.setState({status: 'name_1',data}));
+
   }
 
   handleInputOnChange(e, key) {
@@ -78,6 +99,7 @@ export default class ApiUI extends React.Component {
 
   handleSubmit(e, action, data) {
     e.preventDefault();
+    this.setState({dispatchedData: data})
     socket.emit(action, data);
   }
 
@@ -97,13 +119,39 @@ export default class ApiUI extends React.Component {
     }
   }
 
+  createSubmitTeamProposalData(){
+    let nominationArr = [this.state.name_1,this.state.name_2];
+    if (this.state.name_3) {
+      nominationArr.push(this.state.name_1);
+    }
+    if (this.state.name_4) {
+      nominationArr.push(this.state.name_4);
+    }
+    if (this.state.name_5) {
+      nominationArr.push(this.state.name5);
+    }
+
+    return {
+      room: this.state.submitProposal_room,
+      nominationArr
+    }
+  }
+
+  createVoteForProposedTeam() {
+    return {
+      room: this.state.voteForProposedTeam_room,
+      player: this.state.voteForProposedTeam_player,
+      vote: this.state.voteForProposedTeam_vote ? 'APPROVE' : 'REJECT'
+    }
+  }
+
   render() {
     window.state = () => console.log(this.state);
     return (
-      <div style={{width: '100%', height: '100%'}}>
+      <div style={{width: '100%', height: '100%', overflowY: 'hidden'}}>
         <h1>API UI</h1>
         <div style={{display: 'flex', justifyContent: 'space-between', height: '100%'}}>
-          <div style={{width: '50%', height: '100%'}}>
+          <div style={{width: '50%', height: '100%', overflowY: 'scroll'}}>
             <h3>API stuff</h3>
 
             {/* CREATE_USER*/}
@@ -147,13 +195,13 @@ export default class ApiUI extends React.Component {
                     <div>
                       <input
                         type='radio'
-                        checked={this.state.createRoom_isLancelot === true}
+                        checked={this.state.createRoom_isLancelot}
                         onChange={() => this.handleBooleanOnChange('createRoom_isLancelot', true)} /> True
                     </div>
                     <div>
                       <input
                         type='radio'
-                        checked={this.state.createRoom_isLancelot === false}
+                        checked={!this.state.createRoom_isLancelot}
                         onChange={() => this.handleBooleanOnChange('createRoom_isLancelot', false)} /> False
                     </div>
                   </div>
@@ -195,8 +243,86 @@ export default class ApiUI extends React.Component {
               <hr />
             </form>
 
+             {/* SUBMIT_TEAM_PROPOSAL*/}
+             <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_TEAM_PROPOSAL', this.createSubmitTeamProposalData())}>
+              <div style={basicFlex}>
+                <h4>Submit Team Proposal</h4>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>room name: </label>
+                  <input style={{width: '75%'}} value={this.state.submitProposal_room} onChange={(e) => this.handleInputOnChange(e, 'submitProposal_room')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>name1: </label>
+                  <input style={{width: '75%'}}
+                    placeholder='REQUIRED'
+                    value={this.state.name_1}
+                    onChange={(e) => this.handleInputOnChange(e, 'name_1')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>name2: </label>
+                  <input style={{width: '75%'}}
+                    placeholder='REQUIRED'
+                    value={this.state.name_2}
+                    onChange={(e) => this.handleInputOnChange(e, 'name_2')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>name3: </label>
+                  <input style={{width: '75%'}}
+                    value={this.state.name_3}
+                    onChange={(e) => this.handleInputOnChange(e, 'name_3')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>name4: </label>
+                  <input style={{width: '75%'}}
+                    value={this.state.name_4}
+                    onChange={(e) => this.handleInputOnChange(e, 'name_4')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>name5: </label>
+                  <input style={{width: '75%'}}
+                    value={this.state.name_5}
+                    onChange={(e) => this.handleInputOnChange(e, 'name_5')} />
+                </div>
+                <button>Submit</button>
+              </div>
+              <hr />
+            </form>
 
-
+             {/* VOTE_FOR_PROPOSED_TEAM */}
+            <form onSubmit={(e) => this.handleSubmit(e, 'VOTE_FOR_PROPOSED_TEAM', this.createVoteForProposedTeam())}>
+              <div style={basicFlex}>
+                <h4>Vote For Proposed Team</h4>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>Room: </label>
+                  <input style={{width: '75%'}} value={this.state.voteForProposedTeam_room}
+                    onChange={(e) => this.handleInputOnChange(e, 'voteForProposedTeam_room')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>Player: </label>
+                  <input style={{width: '75%'}} value={this.state.voteForProposedTeam_player}
+                    onChange={(e) => this.handleInputOnChange(e, 'voteForProposedTeam_player')} />
+                </div>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>Vote: </label>
+                  <div style={{display: 'flex', justifyContent: 'space-around', width: '75%'}}>
+                    <div>
+                      <input
+                        type='radio'
+                        checked={this.state.voteForProposedTeam_vote}
+                        onChange={() => this.handleBooleanOnChange('voteForProposedTeam_vote', true)} /> Approve
+                    </div>
+                    <div>
+                      <input
+                        type='radio'
+                        checked={!this.state.voteForProposedTeam_vote}
+                        onChange={() => this.handleBooleanOnChange('voteForProposedTeam_vote', false)} /> Reject
+                    </div>
+                  </div>
+                </div>
+                <button>Submit</button>
+              </div>
+              <hr />
+            </form>
 
 
 
@@ -239,7 +365,10 @@ export default class ApiUI extends React.Component {
             {/* CLEAR_STATE*/}
             <form onSubmit={(e) => this.handleSubmit(e, 'CLEAR_STATE')}>
               <div style={basicFlex}>
-                <h4>CLEAR STATE</h4>
+                <h4>CLEAR STATE</h4><div style={fieldFlex}>
+                  <label style={{width: '25%'}}>User: </label>
+                  <input style={{width: '75%'}} value={this.state.roomState_room} onChange={(e) => this.handleInputOnChange(e, 'roomState_room')} />
+                </div>
                 <button>Submit</button>
               </div>
               <hr />
@@ -250,7 +379,7 @@ export default class ApiUI extends React.Component {
 
 
 
-          <div style={{width: '50%', height: '100%', borderLeft: '1px solid black', padding: '10px'}}>
+          <div style={{width: '50%', height: '100%', borderLeft: '1px solid black', padding: '10px', overflowY: 'scroll'}}>
             <div>
               <h3>Server State</h3>
                 <div>Status: {this.state.status}</div>
