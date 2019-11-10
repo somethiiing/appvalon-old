@@ -117,7 +117,7 @@ class App extends React.Component {
         {context => (
           <div>
             <NavBar />
-            {context.shouldShowGameBoard ? (<GameBoard roomDate={fakeRoomData}/>) : this.renderPage(context)}
+            {context.shouldShowGameBoard ? (<GameBoard roomData={fakeRoomData}/>) : this.renderPage(context)}
           </div>
         )}
         </Context.Consumer>

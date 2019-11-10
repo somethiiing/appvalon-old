@@ -78,7 +78,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Gameboard (props) {
+function GameBoard (props) {
   const classes = useStyles();
   const { kingOrder, boardInfo, missionsData } = props.roomData;
   const { missionSizes, doubleFailRequired } = boardInfo;
@@ -155,4 +155,4 @@ function PlayerListItem (props) {
   )
 };
 
-export default Gameboard;
+export default GameBoard;
