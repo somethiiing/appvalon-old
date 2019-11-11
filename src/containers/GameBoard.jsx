@@ -75,13 +75,21 @@ const useStyles = makeStyles(theme => ({
   roomInfo: {
     height: '20%',
     borderTop: '1px solid black'
+  },
+  roomInfo_subheader: {
+    fontWeight: 500
+  },
+  roomInfo_block: {
+    width: '150px',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }));
 
 function GameBoard (props) {
   const classes = useStyles();
   const { kingOrder = [], boardInfo = {}, missionsData = [] } = props.roomData;
-  const { missionSizes = [], doubleFailRequired } = boardInfo;
+  const { missionSizes = [], doubleFailRequired, numGood, numBad, playerCount } = boardInfo;
 
   return (
     <div className={classes.gameboard}>
@@ -104,7 +112,21 @@ function GameBoard (props) {
       </div>
 
       <div className={classes.roomInfo}>
-          Room Info:
+          <h3>Room Info:</h3>
+          <div>
+            <div className={classes.roomInfo_block}>
+              <div className={classes.roomInfo_subheader}>Player Count:</div>
+              <div className={classes.roomInfo_data}>{ playerCount }</div>
+            </div>
+            <div className={classes.roomInfo_block}>
+              <div className={classes.roomInfo_subheader}># of Good:</div>
+              <div className={classes.roomInfo_data}>{ numGood }</div>
+            </div>
+            <div className={classes.roomInfo_block}>
+              <div className={classes.roomInfo_subheader}># of Bad:</div>
+              <div className={classes.roomInfo_data}>{ numBad }</div>
+            </div>
+          </div>
       </div>
     </div>
   );
