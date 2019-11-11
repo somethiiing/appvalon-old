@@ -80,8 +80,8 @@ const useStyles = makeStyles(theme => ({
 
 function GameBoard (props) {
   const classes = useStyles();
-  const { kingOrder, boardInfo, missionsData } = props.roomData;
-  const { missionSizes, doubleFailRequired } = boardInfo;
+  const { kingOrder = [], boardInfo = {}, missionsData = [] } = props.roomData;
+  const { missionSizes = [], doubleFailRequired } = boardInfo;
 
   return (
     <div className={classes.gameboard}>

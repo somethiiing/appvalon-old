@@ -30,18 +30,18 @@ export default class ApiUI extends React.Component {
       createRoom_roomOwner: '',
       joinRoom_room: '',
       joinRoom_user: '',
-      submitProposal_room: '',
-      name_1: '',
-      name_2: '',
-      name_3: '',
-      name_4: '',
-      name_5: '',
-      roomState_room: '',
+      submitTeamProposal_room: '',
+      submitTeamProposal_name1: '',
+      submitTeamProposal_name2: '',
+      submitTeamProposal_name3: '',
+      submitTeamProposal_name4: '',
+      submitTeamProposal_name5: '',
       voteForProposedTeam_room: '',
       voteForProposedTeam_player: '',
       voteForProposedTeam_vote: false,
       finalizeProposedTeam_room: '',
-      submitProposedTeam_room: ''
+      submitProposedTeam_room: '',
+      roomState_room: '',
 
     };
 
@@ -92,7 +92,7 @@ export default class ApiUI extends React.Component {
     socket.on('GOT_FULL_STATE', data => this.setState({status: 'GOT_FULL_STATE', data}) );
     socket.on('STATE_CLEARED', data => this.setState({status: 'ROOM_CREATED', data}) );
 
-    //socket.on('SUBMIT_PROPOSED_TEAM_VOTE', data => this.setState({status: 'name_1',data}));
+    //socket.on('SUBMIT_PROPOSED_TEAM_VOTE', data => this.setState({status: 'submitTeamProposal_name1',data}));
 
   }
 
@@ -131,19 +131,19 @@ export default class ApiUI extends React.Component {
   }
 
   createSubmitTeamProposalData(){
-    let nominationArr = [this.state.name_1,this.state.name_2];
-    if (this.state.name_3) {
-      nominationArr.push(this.state.name_1);
+    let nominationArr = [this.state.submitTeamProposal_name1, this.state.submitTeamProposal_name2];
+    if (this.state.submitTeamProposal_name3) {
+      nominationArr.push(this.state.submitTeamProposal_name1);
     }
-    if (this.state.name_4) {
-      nominationArr.push(this.state.name_4);
+    if (this.state.submitTeamProposal_name4) {
+      nominationArr.push(this.state.submitTeamProposal_name4);
     }
-    if (this.state.name_5) {
+    if (this.state.submitTeamProposal_name5) {
       nominationArr.push(this.state.name5);
     }
 
     return {
-      room: this.state.submitProposal_room,
+      room: this.state.submitTeamProposal_room,
       nominationArr
     }
   }
@@ -162,7 +162,7 @@ export default class ApiUI extends React.Component {
       <div style={{width: '100%', height: '100%', overflowY: 'hidden'}}>
         <h1>API UI</h1>
         <div style={{display: 'flex', justifyContent: 'space-between', height: '100%'}}>
-          <div style={{width: '50%', height: '100%', overflowY: 'scroll'}}>
+          <div style={{width: '50%', height: '90%', overflowY: 'scroll'}}>
             <h3>API stuff</h3>
 
             {/* CREATE_USER*/}
@@ -254,45 +254,45 @@ export default class ApiUI extends React.Component {
               <hr />
             </form>
 
-             {/* SUBMIT_TEAM_PROPOSAL*/}
-             <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_TEAM_PROPOSAL', this.createSubmitTeamProposalData())}>
+            {/* SUBMIT_TEAM_PROPOSAL*/}
+            <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_TEAM_PROPOSAL', this.createSubmitTeamProposalData())}>
               <div style={basicFlex}>
                 <h4>Submit Team Proposal</h4>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>room name: </label>
-                  <input style={{width: '75%'}} value={this.state.submitProposal_room} onChange={(e) => this.handleInputOnChange(e, 'submitProposal_room')} />
+                  <input style={{width: '75%'}} value={this.state.submitTeamProposal_room} onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_room')} />
                 </div>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>name1: </label>
                   <input style={{width: '75%'}}
                     placeholder='REQUIRED'
-                    value={this.state.name_1}
-                    onChange={(e) => this.handleInputOnChange(e, 'name_1')} />
+                    value={this.state.submitTeamProposal_name1}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_name1')} />
                 </div>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>name2: </label>
                   <input style={{width: '75%'}}
                     placeholder='REQUIRED'
-                    value={this.state.name_2}
-                    onChange={(e) => this.handleInputOnChange(e, 'name_2')} />
+                    value={this.state.submitTeamProposal_name2}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_name2')} />
                 </div>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>name3: </label>
                   <input style={{width: '75%'}}
-                    value={this.state.name_3}
-                    onChange={(e) => this.handleInputOnChange(e, 'name_3')} />
+                    value={this.state.submitTeamProposal_name3}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_name3')} />
                 </div>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>name4: </label>
                   <input style={{width: '75%'}}
-                    value={this.state.name_4}
-                    onChange={(e) => this.handleInputOnChange(e, 'name_4')} />
+                    value={this.state.submitTeamProposal_name4}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_name4')} />
                 </div>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>name5: </label>
                   <input style={{width: '75%'}}
-                    value={this.state.name_5}
-                    onChange={(e) => this.handleInputOnChange(e, 'name_5')} />
+                    value={this.state.submitTeamProposal_name5}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitTeamProposal_name5')} />
                 </div>
                 <button>Submit</button>
               </div>
@@ -336,7 +336,7 @@ export default class ApiUI extends React.Component {
             </form>
 
              {/*FINALIZE_PROPOSED_TEAM_VOTING*/}
-            <form onSubmit={(e) => this.handleSubmit(e, 'FINALIZE_PROPOSED_TEAM_VOTING', this.createVoteForProposedTeam()), this.state.finalizeProposedTeam_room}>
+            <form onSubmit={(e) => this.handleSubmit(e, 'FINALIZE_PROPOSED_TEAM_VOTING', {room: this.state.finalizeProposedTeam_room})}>
               <div style={basicFlex}>
                 <h4>Finalize Proposed Team Voting</h4>
                 <div style={fieldFlex}>
@@ -345,12 +345,12 @@ export default class ApiUI extends React.Component {
                     onChange={(e) => this.handleInputOnChange(e, 'finalizeProposedTeam_room')} />
                 </div>
                 <button>Submit</button>
-                </div>
-                <hr/>
-                </form>
+              </div>
+              <hr/>
+            </form>
 
-              {/*SUBMIT_PROPOSED_TEAM_VOTE*/}
-            <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_PROPOSED_TEAM_VOTE', this.createVoteForProposedTeam()), this.state.submitProposedTeam_room}>
+            {/*SUBMIT_PROPOSED_TEAM_VOTE*/}
+            <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_PROPOSED_TEAM_VOTE', {room: this.state.submitProposedTeam_room} )}>
               <div style={basicFlex}>
                 <h4>Submit Proposed Team Vote</h4>
                 <div style={fieldFlex}>
@@ -359,11 +359,13 @@ export default class ApiUI extends React.Component {
                     onChange={(e) => this.handleInputOnChange(e, 'submitProposedTeam_room')} />
                 </div>
                 <button>Submit</button>
-                </div>
-                <hr/>
-                </form>
+              </div>
+              <hr/>
+            </form>
 
-
+            <br /><br /><br /><br /><br /><br /><br />
+            <hr/><hr/><hr/><hr/><hr/><hr/><hr/><hr/>
+            <br /><br /><br /><br /><br /><br /><br />
 
             {/* ROOM_STATE*/}
             <form onSubmit={(e) => this.handleSubmit(e, 'ROOM_STATE', this.state.roomState_room)}>
@@ -404,7 +406,6 @@ export default class ApiUI extends React.Component {
                   <input style={{width: '75%'}} value={this.state.roomState_room} onChange={(e) => this.handleInputOnChange(e, 'roomState_room')} />
                 </div>
                 <button>Submit</button>
-                
               </div>
               <hr />
             </form>
