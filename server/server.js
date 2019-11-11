@@ -23,6 +23,11 @@ let serverState = {
       "timer": null,
       "playerCount": 5,
       "selectedBoard": 5,
+      "selectedRoles": [
+        "Merlin",
+        "Assassin",
+        "Mordred"
+      ],
       "players": [
         "wilson",
         "red",
@@ -124,7 +129,7 @@ io.on('connection', socket => {
   });
 
   socket.on('CREATE_ROOM', roomSettings => {
-    // settings: { numPeople: number, isLancelot: boolean, board: number, roomOwner: string }
+    // settings: { numPeople: number, isLancelot: boolean, board: number, selectedRoles: array, roomOwner: string }
     const { status, room, state } = createRoom(serverState, roomSettings);
     io.emit(status, state.rooms[room]);
     console.log(status, JSON.stringify(serverState, null, 2));

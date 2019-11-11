@@ -6,6 +6,7 @@ import Context from '../Context';
 import NumPlayersSelect from '../components/CreateRoom/NumPlayersSelect';
 import LancelotCheckbox from '../components/CreateRoom/LancelotCheckbox';
 import BoardSizeSelect from '../components/CreateRoom/BoardSizeSelect';
+import RolesSelect from '../components/CreateRoom/RolesSelect';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -27,6 +28,7 @@ function CreateRoom(props) {
     numPeople: 5,
     isLancelot: false,
     board: 5,
+    selectedRoles: [],
     roomOwner: context.userName
   });
 
@@ -37,6 +39,11 @@ function CreateRoom(props) {
   const handleSelectChange = name => event => {
     setValues({...values, [name]: event.target.value });
   };
+
+  const handleRolesChange = (roles) => {
+    setValues({...values, selectedRoles: roles})
+  };
+
 //TODO add 'choose roles in this game', but don't choose your role in join game
   return (
     <Context.Consumer>
@@ -46,6 +53,7 @@ function CreateRoom(props) {
         <NumPlayersSelect numPeople={values.numPeople} handleChange={handleSelectChange} />
         <LancelotCheckbox isLancelot={values.isLancelot} handleChange={handleCheckboxChange} />
         {values.isLancelot && <BoardSizeSelect board={values.board} handleChange={handleSelectChange} />}
+        <RolesSelect showLancelots={values.isLancelot} handleRolesChange={handleRolesChange} />
         <Button variant="contained" color="primary" className={classes.button}
           onClick={() => context.createRoom(values)}>
           Submit

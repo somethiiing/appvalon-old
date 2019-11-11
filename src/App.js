@@ -48,20 +48,35 @@ class App extends React.Component {
     }
   };
 
+  renderRealStuff = (context) => {
+    return (
+      <div>
+        <NavBar />
+        {context.shouldShowGameBoard ? (<GameBoard roomData={fakeRoomData}/>) : this.renderPage(context)}
+      </div>
+    );
+  }
+
+  renderTestStuff = (context) => {
+    return (
+      <div>
+      {<button onClick={this.toggleShowApiUI}>{`ApiUI >><< Gameboard`}</button>}
+      {this.state.showApiUI && <ApiUI />}
+      {<GameBoard roomData={fakeRoomData} />}
+      {/* {context.roomData && <GameBoard roomData={context.roomData} />} */}
+      </div>
+    );
+  }
 
   render() {
+    const apiTestMode = false;
 
     return (
       <Provider>
         <Context.Consumer>
         {context => (
           <div style={{width: '100%', height: '100%'}}>
-            <button onClick={this.toggleShowApiUI}>{`ApiUI >><< Gameboard`}</button>
-            {this.state.showApiUI && <ApiUI />}
-            {<GameBoard roomData={fakeRoomData} />}
-            {/* {context.roomData && <GameBoard roomData={context.roomData} />} */}
-            {/* <NavBar />
-            {context.shouldShowGameBoard ? (<GameBoard roomData={fakeRoomData}/>) : this.renderPage(context)} */}
+            {apiTestMode ? this.renderTestStuff(context) : this.renderRealStuff(context)}
           </div>
         )}
         </Context.Consumer>

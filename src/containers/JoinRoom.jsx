@@ -39,7 +39,7 @@ function JoinRoom(props) {
   return (
     <Context.Consumer>
     {context => (
-      <div className={classes.container}>
+      <div>
         <h2>Choose a Room to Join</h2>
         <RoomList userName={context.userName} />
       </div>

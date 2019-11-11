@@ -10,7 +10,12 @@ let testing1 = {
   // from setup options
   playerCount: 5, // number - from setup
   selectedBoard: 5, // unique board based off of player count - fancy lancelot only - from setup
-
+  selectedRoles: [
+    "Merlin",
+    "Assassin",
+    "Mordred"
+  ],
+  
   // players joining
   players: [], // - from players joining
 

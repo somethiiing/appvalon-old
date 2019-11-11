@@ -7,6 +7,11 @@ export default {
   "timer": null,
   "playerCount": 5,
   "selectedBoard": 5,
+  "selectedRoles": [
+    "Merlin",
+    "Assassin",
+    "Mordred"
+  ],
   "players": [
     "wilson",
     "red",

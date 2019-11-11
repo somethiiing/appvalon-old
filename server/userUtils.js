@@ -26,8 +26,8 @@ const createRoom = (state, settings) => {
   const roomName = getRandomFruit();
   if (roomName === null) { return { status: 'ROOMS_FULL', state } };
 
-  const { numPeople, isLancelot, board, roomOwner } = settings;
-  const boardIndex = isLancelot ? board: numPeople;
+  const { numPeople, isLancelot, board, roomOwner, selectedRoles } = settings;
+  const boardIndex = isLancelot ? board : numPeople;
 
   const room = {
     ...defaultRoomObject,
@@ -35,6 +35,7 @@ const createRoom = (state, settings) => {
     boardInfo: boards[boardIndex],
     playerCount: numPeople,
     selectedBoard: boardIndex,
+    selectedRoles,
     roomOwner,
     players: [roomOwner]
   }
