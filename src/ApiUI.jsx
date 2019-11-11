@@ -39,7 +39,9 @@ export default class ApiUI extends React.Component {
       roomState_room: '',
       voteForProposedTeam_room: '',
       voteForProposedTeam_player: '',
-      voteForProposedTeam_vote: false
+      voteForProposedTeam_vote: false,
+      finalizeProposedTeam_room: '',
+      submitProposedTeam_room: ''
 
     };
 
@@ -50,6 +52,7 @@ export default class ApiUI extends React.Component {
     this.createCreateRoomData = this.createCreateRoomData.bind(this);
     this.createJoinRoomData = this.createJoinRoomData.bind(this);
     this.createSubmitTeamProposalData = this.createSubmitTeamProposalData.bind(this);
+
   }
 
   componentDidMount() {
@@ -74,6 +77,14 @@ export default class ApiUI extends React.Component {
 
     //VOTE_FOR_PROPOSED_TEAM
     socket.on('PROPOSED_TEAM_VOTE_REGISTERED', data => this.setState({status: 'PROPOSED_TEAM_VOTE_REGISTERED', data}));
+
+    //FINALIZE_PROPOSED_TEAM_VOTING
+    socket.on('PROPOSED_TEAM_VOTE_COUNTDOWN', data => this.setState({status: 'PROPOSED_TEAM_VOTE_COUNTDOWN', data}));
+    socket.on('NOT_ENOUGH_VOTES', data => this.setState({status: 'NOT_ENOUGH_VOTES', data}));
+
+    //SUBMIT_PROPOSED_TEAM_VOTING
+    socket.on('START_MISSION_VOTING', data => this.setState({status: 'START_MISSION_VOTING', data}));
+    socket.on('START_PROPOSING_TEAM', data => this.setState({status: 'START_PROPOSING_TEAM', data}));
 
     // UTIL FUNCTIONS
     socket.on('GOT_ROOM_STATE', data => this.setState({status: 'GOT_ROOM_STATE', data}) );
@@ -324,10 +335,33 @@ export default class ApiUI extends React.Component {
               <hr />
             </form>
 
+             {/*FINALIZE_PROPOSED_TEAM_VOTING*/}
+            <form onSubmit={(e) => this.handleSubmit(e, 'FINALIZE_PROPOSED_TEAM_VOTING', this.createVoteForProposedTeam()), this.state.finalizeProposedTeam_room}>
+              <div style={basicFlex}>
+                <h4>Finalize Proposed Team Voting</h4>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>Room: </label>
+                  <input style={{width: '75%'}} value={this.state.finalizeProposedTeam_room}
+                    onChange={(e) => this.handleInputOnChange(e, 'finalizeProposedTeam_room')} />
+                </div>
+                <button>Submit</button>
+                </div>
+                <hr/>
+                </form>
 
-
-
-
+              {/*SUBMIT_PROPOSED_TEAM_VOTE*/}
+            <form onSubmit={(e) => this.handleSubmit(e, 'SUBMIT_PROPOSED_TEAM_VOTE', this.createVoteForProposedTeam()), this.state.submitProposedTeam_room}>
+              <div style={basicFlex}>
+                <h4>Submit Proposed Team Vote</h4>
+                <div style={fieldFlex}>
+                  <label style={{width: '25%'}}>Room: </label>
+                  <input style={{width: '75%'}} value={this.state.submitProposedTeam_room}
+                    onChange={(e) => this.handleInputOnChange(e, 'submitProposedTeam_room')} />
+                </div>
+                <button>Submit</button>
+                </div>
+                <hr/>
+                </form>
 
 
 
@@ -370,6 +404,7 @@ export default class ApiUI extends React.Component {
                   <input style={{width: '75%'}} value={this.state.roomState_room} onChange={(e) => this.handleInputOnChange(e, 'roomState_room')} />
                 </div>
                 <button>Submit</button>
+                
               </div>
               <hr />
             </form>
