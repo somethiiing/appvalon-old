@@ -10,6 +10,7 @@ import CreateRoom from './containers/CreateRoom';
 import ProposeTeam from './containers/ProposeTeam';
 import GameBoard from './containers/GameBoard';
 import NavBar from './containers/NavBar';
+import WaitForGameStart from './containers/WaitForGameStart';
 
 import ApiUI from './ApiUI';
 import fakeRoomData from './fakeRoomData';
@@ -37,6 +38,9 @@ class App extends React.Component {
         return isCreatingRoom
           ? (<CreateRoom />)
           : (<JoinRoom />);
+      case 'ROOM_CREATED':
+      case 'JOIN_ROOM_SUCCESS':
+        return (<WaitForGameStart />);
       case 'GAME_START':
       case 'START_PROPOSING_TEAM':
         return userName === roomData.kingOrder[0]

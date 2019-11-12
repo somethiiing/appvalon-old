@@ -99,7 +99,7 @@ function GameBoard (props) {
             <QuestInfoItem
               misNum={ind}
               misSize={misSize}
-              doubleFailRequired={true}
+              doubleFailRequired={doubleFailRequired}
               missionData={missionsData[ind]}
             />
           )}

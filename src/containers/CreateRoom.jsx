@@ -44,7 +44,6 @@ function CreateRoom(props) {
     setValues({...values, selectedRoles: roles})
   };
 
-//TODO add 'choose roles in this game', but don't choose your role in join game
   return (
     <Context.Consumer>
     {context => (
