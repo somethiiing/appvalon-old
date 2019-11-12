@@ -26,7 +26,8 @@ function ProposeTeam(props) {
 
   React.useEffect(() => {
     mapPropsToState(props);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const mapPropsToState = (props) => {
     let newState = {};
