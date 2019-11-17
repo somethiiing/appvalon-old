@@ -20,10 +20,6 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
         alignment: 'evil'
@@ -107,12 +103,12 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
+      titania: {
+        role: 'titania',
         alignment: 'evil'
       }
     },
-    description: 'is hidden from Merlin.'
+    description: 'is practically generic evil. Gets final say in assassination. If assassin is not present, then evil makes a consensus on who to kill'
   },
   mordred: {
     role: 'Mordred',
@@ -130,15 +126,16 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
         alignment: 'evil'
+      },
+      titania: {
+        role: 'titania',
+        alignment: 'evil'
       }
-    }
+    },
+    description: 'hidden from Merlin'
   },
   morgana: {
     role: 'Morgana',
@@ -156,12 +153,12 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
+        alignment: 'evil'
+      },
+      titania: {
+        role: 'titania',
         alignment: 'evil'
       }
     },
@@ -183,12 +180,12 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
+        alignment: 'evil'
+      },
+      titania: {
+        role: 'titania',
         alignment: 'evil'
       }
     },
@@ -214,12 +211,12 @@ export const roleData = {
         role: 'Generic Evil',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
+        alignment: 'evil'
+      },
+      titania: {
+        role: 'titania',
         alignment: 'evil'
       }
     },
@@ -241,12 +238,12 @@ export const roleData = {
         role: 'Agravaine',
         alignment: 'evil'
       },
-      lancelot: {
-        role: 'Lancelot',
-        alignment: 'evil'
-      },
       assassin: {
         role: 'Assassin',
+        alignment: 'evil'
+      },
+      titania: {
+        role: 'titania',
         alignment: 'evil'
       }
     },

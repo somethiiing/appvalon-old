@@ -2,7 +2,7 @@ const { roleData } = require('./roleAssignmentData');
 
 /**
   playerList: array of strings.
-    ex: [ 'wilson', 'vinh', 'bridget', 'steven', 'kelvin', 'andrew', 'richard' ]
+    ex: [ 'wilson', 'vinh', 'bridget', 'steven', 'kelvin', 'richard', 'andrew' ]
 
   settings: object
     ex: settings: {
@@ -20,7 +20,7 @@ const { roleData } = require('./roleAssignmentData');
 
         hasAssassin: true, //bool
         hasMordred: true, //bool
-        hasMorgana: true. //bool
+        hasMorgana: true, //bool
         hasAgravaine: false, //bool
         hasColgrevance: false, //bool
         hasOberon: false, //bool
@@ -39,7 +39,7 @@ const { roleData } = require('./roleAssignmentData');
         role: 'Merlin',
         sees: {
           kelvin: { alignment: 'evil' },
-          richard: { alignment: 'evil' }
+          andrew: { alignment: 'evil' }
         }
       },
       vinh: {
@@ -83,7 +83,15 @@ const { roleData } = require('./roleAssignmentData');
 
 
 function createRoleAssignment(playerList, settings) {
+  /**
+    1. compare list of good roles with numGood, compare list of evil roles with numEvil, compare total with numPeople
+    2. generate list of roles, ['merlin', 'percival', 'genericGood1', 'genericgood2', 'assassin', 'mordred', 'morgana' ]
+    - 3. // shuffle role or person array
+    4. assign each person with a role
+    5. assign data to each person's role
 
+   */
+  return {}
 }
 
 
