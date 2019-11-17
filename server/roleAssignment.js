@@ -46,7 +46,7 @@ const roleData = require('./roleAssignmentData');
         role: 'Percival',
         sees: {
           wilson: { alignment: 'unknown' },
-          richard: { alignment: 'unknown' }
+          andrew: { alignment: 'unknown' }
         }
       },
       bridget: {
