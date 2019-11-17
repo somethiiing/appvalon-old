@@ -1,4 +1,4 @@
-export const roleData = {
+module.exports = {
   // good
   merlin: {
     role: 'Merlin',
@@ -104,7 +104,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },
@@ -131,7 +131,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },
@@ -158,7 +158,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },
@@ -185,7 +185,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },
@@ -216,7 +216,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },
@@ -243,7 +243,7 @@ export const roleData = {
         alignment: 'evil'
       },
       titania: {
-        role: 'titania',
+        role: 'Titania',
         alignment: 'evil'
       }
     },

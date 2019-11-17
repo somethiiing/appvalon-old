@@ -1,4 +1,4 @@
-const { roleData } = require('./roleAssignmentData');
+const roleData = require('./roleAssignmentData');
 
 /**
   playerList: array of strings.
@@ -87,10 +87,11 @@ function createRoleAssignment(playerList, settings) {
     1. compare list of good roles with numGood, compare list of evil roles with numEvil, compare total with numPeople
     2. generate list of roles, ['merlin', 'percival', 'genericGood1', 'genericgood2', 'assassin', 'mordred', 'morgana' ]
     - 3. // shuffle role or person array
-    4. assign each person with a role
+    4. assign each person with a role, this should be an object
     5. assign data to each person's role
 
    */
+
   return {}
 }
 
@@ -123,4 +124,4 @@ const fakeSettings = {
 };
 
 const testRoleAssignment = createRoleAssignment(fakePlayerList, fakeSettings);
-console.log(JSON.stringify(testRoleAssignment, null, 2))
+console.log(JSON.stringify(testRoleAssignment, null, 2));
