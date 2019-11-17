@@ -17,7 +17,6 @@ let serverState = {
         "Assassin",
         "Mordred"
       ],
-      
       // players joining
       players: [], // - from players joining
 

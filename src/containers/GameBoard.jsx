@@ -83,12 +83,17 @@ const useStyles = makeStyles(theme => ({
     width: '150px',
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  roomInfo_extendedBlock: {
+    width: '500px',
+    display: 'flex',
+    justifyContent: 'space-between'
   }
 }));
 
 function GameBoard (props) {
   const classes = useStyles();
-  const { kingOrder = [], boardInfo = {}, missionsData = [] } = props.roomData;
+  const { kingOrder = [], boardInfo = {}, missionsData = [], selectedRoles = [] } = props.roomData;
   const { missionSizes = [], doubleFailRequired, numGood, numBad, playerCount } = boardInfo;
 
   return (
@@ -125,6 +130,10 @@ function GameBoard (props) {
             <div className={classes.roomInfo_block}>
               <div className={classes.roomInfo_subheader}># of Bad:</div>
               <div className={classes.roomInfo_data}>{ numBad }</div>
+            </div>
+            <div className={classes.roomInfo_extendedBlock}>
+              <div className={classes.roomInfo_subheader}>Selected Roles:</div>
+              <div className={classes.roomInfo_data}>{ selectedRoles.join(', ') }</div>
             </div>
           </div>
       </div>

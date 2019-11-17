@@ -51,7 +51,7 @@ const joinRoom = (state, user, room) => {
   let roomData = state.rooms[room];
 
   if (!roomData) {
-    return { status: 'JOIN_ROOM_ROOM_NOT_FOUND', state };
+    return { status: 'ROOM_NOT_FOUND', state };
   }
 
   roomData.players.push(user);

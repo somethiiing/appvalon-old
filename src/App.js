@@ -63,7 +63,7 @@ class App extends React.Component {
 
   renderTestStuff = (context) => {
     return (
-      <div>
+      <div style={{width: '100%', height: '100%'}}>
       {<button onClick={this.toggleShowApiUI}>{`ApiUI >><< Gameboard`}</button>}
       {this.state.showApiUI && <ApiUI />}
       {<GameBoard roomData={fakeRoomData} />}

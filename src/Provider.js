@@ -24,6 +24,8 @@ class Provider extends React.Component {
     socket.on('START_MISSION_VOTING', data => {this.setState({status: 'START_MISSION_VOTING'}); this.logStatusData('START_MISSION_VOTING', data)});
     socket.on('START_PROPOSING_TEAM', data => {this.setState({status: 'START_PROPOSING_TEAM'}); this.logStatusData('START_PROPOSING_TEAM', data)});
 
+    socket.on('ROOM_NOT_FOUND', data => this.logStatusData('ROOM_NOT_FOUND', data))
+
     socket.on('GOT_ROOM_STATE', data => {
       this.setState({status: data.status, roomData: data})
       this.logStatusData('', data)

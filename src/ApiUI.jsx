@@ -92,7 +92,8 @@ export default class ApiUI extends React.Component {
     socket.on('GOT_FULL_STATE', data => this.setState({status: 'GOT_FULL_STATE', data}) );
     socket.on('STATE_CLEARED', data => this.setState({status: 'ROOM_CREATED', data}) );
 
-    //socket.on('SUBMIT_PROPOSED_TEAM_VOTE', data => this.setState({status: 'submitTeamProposal_name1',data}));
+    // error handling
+    socket.on('ROOM_NOT_FOUND', data => this.setState({status: 'ROOM_NOT_FOUND', data}))
 
   }
 
@@ -116,10 +117,10 @@ export default class ApiUI extends React.Component {
 
   createCreateRoomData() {
     return {
-      numPeople: this.state.createRoom_numPeople,
+      numPeople: Number(this.state.createRoom_numPeople),
       roomOwner: this.state.createRoom_roomOwner,
       isLancelot: this.state.createRoom_isLancelot,
-      board: this.state.createRoom_board
+      board: Number(this.state.createRoom_board)
     }
   }
 
@@ -370,7 +371,7 @@ export default class ApiUI extends React.Component {
             {/* ROOM_STATE*/}
             <form onSubmit={(e) => this.handleSubmit(e, 'ROOM_STATE', this.state.roomState_room)}>
               <div style={basicFlex}>
-                <h4>Room State</h4>
+                <h4>ROOM STATE</h4>
                 <div style={fieldFlex}>
                   <label style={{width: '25%'}}>User: </label>
                   <input style={{width: '75%'}} value={this.state.roomState_room} onChange={(e) => this.handleInputOnChange(e, 'roomState_room')} />
@@ -401,10 +402,7 @@ export default class ApiUI extends React.Component {
             {/* CLEAR_STATE*/}
             <form onSubmit={(e) => this.handleSubmit(e, 'CLEAR_STATE')}>
               <div style={basicFlex}>
-                <h4>CLEAR STATE</h4><div style={fieldFlex}>
-                  <label style={{width: '25%'}}>User: </label>
-                  <input style={{width: '75%'}} value={this.state.roomState_room} onChange={(e) => this.handleInputOnChange(e, 'roomState_room')} />
-                </div>
+                <h4>CLEAR STATE</h4>
                 <button>Submit</button>
               </div>
               <hr />

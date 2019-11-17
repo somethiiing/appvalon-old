@@ -61,7 +61,7 @@ let serverState = {
         "blue"
       ],
       "rejectedMissionCount": 0,
-      "nextHammer": "",
+      "nextHammer": "wilson",
       "proposedTeam": [
         "white",
         "blue"

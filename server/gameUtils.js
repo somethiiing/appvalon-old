@@ -1,14 +1,16 @@
-const { shuffle } = require('./otherUtils');
+const { shuffle, findNextHammer } = require('./otherUtils');
 
 const gameInstantiation = (state, room) => {
   let { players } = state.rooms[room];
   let kingOrder = shuffle(players.slice(0));
+  let nextHammer = findNextHammer(kingOrder);
 
   let roomData = {
     ...state.rooms[room],
     status: 'PROPOSING_TEAM',
     missionNum: 1,
     kingOrder,
+    nextHammer
   }
 
   return { status: 'GAME_STARTED', roomData };
