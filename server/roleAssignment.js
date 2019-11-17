@@ -86,3 +86,33 @@ function createRoleAssignment(playerList, settings) {
 
 }
 
+
+const fakePlayerList = ['wilson', 'bridget', 'vinh', 'steven', 'kelvin', 'richard', 'andrew'];
+
+const fakeSettings = {
+  numPeople: 7, // number
+  numGood: 4, // number
+  numEvil: 3, // number
+  roles: {
+    hasMerlin: true, //bool
+    hasPercival: true, //bool
+    hasTristan: false, //bool
+    hasIseult: false, //bool
+    hasTitania: false, //bool
+    hasGenGood: true, //bool
+    numGenGood: 2, //num
+
+    hasAssassin: true, //bool
+    hasMordred: true, //bool
+    hasMorgana: true, //bool
+    hasAgravaine: false, //bool
+    hasColgrevance: false, //bool
+    hasOberon: false, //bool
+    hasNOberon: false, //bool
+    hasGenEvil: false, //bool
+    numGenEvil: 0 //num
+  }
+};
+
+const testRoleAssignment = createRoleAssignment(fakePlayerList, fakeSettings);
+console.log(JSON.stringify(testRoleAssignment, null, 2))
