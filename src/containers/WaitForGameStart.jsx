@@ -19,7 +19,7 @@ function WaitForGameStart(props) {
       <div className={classes.container}>
         <h2>Waiting for Players to Join</h2>
         <p><b>Room Name:</b> {context.roomData.roomName}</p>
-        <p><b>Roles:</b> {context.roomData.selectedRoles.toString().replace(/,/g, ', ')}</p>
+        <p><b>Roles:</b> {context.displayArray(context.roomData.selectedRoles)}</p>
         <p>{context.roomData.players.length}/{context.roomData.playerCount} Players Joined:</p>
         <ul>
           {context.roomData.players.map( player =>
