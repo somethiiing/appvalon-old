@@ -6,27 +6,33 @@ module.exports = {
     sees: {
       morgana: {
         roleTitle: 'Morgana',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       agravaine: {
         roleTitle: 'Agravaine',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       colgrevance: {
         roleTitle: 'Colgrevance',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       genericEvil: {
         roleTitle: 'Generic Evil',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       assassin: {
         roleTitle: 'Assassin',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       oberon: {
         roleTitle: 'Oberon',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     know: {},
@@ -38,11 +44,13 @@ module.exports = {
     sees: {
       merlin: {
         roleTitle: 'merlin',
-        alignment: 'unknown'
+        alignment: 'unknown',
+        knowsRole: false
       },
       morgana: {
         roleTitle: 'morgana',
-        alignment: 'unknown'
+        alignment: 'unknown',
+        knowsRole: false
       }
     },
     description: 'sees Merlin and Morgana, but cannot distinguish which role each seen player has.'
@@ -53,7 +61,8 @@ module.exports = {
     sees: {
       iseult: {
         roleTitle: 'iseult',
-        alignment: 'good'
+        alignment: 'good',
+        knowsRole: true
       }
     },
     description: 'sees Iseult; always appear together; can be Assassinated as a pair. also known as the lovers or the twins'
@@ -64,7 +73,8 @@ module.exports = {
     sees: {
       tristan: {
         roleTitle: 'tristan',
-        alignment: 'good'
+        alignment: 'good',
+        knowsRole: true
       }
     },
     description: 'sees Tristan; always appear together; can be Assassinated as a pair. also known as the lovers or the twins'
@@ -89,23 +99,28 @@ module.exports = {
     sees: {
       mordred: {
         roleTitle: 'Mordred',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       morgana: {
         roleTitle: 'Morgana',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       agravaine: {
         roleTitle: 'Agravaine',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       genericEvil: {
         roleTitle: 'Generic Evil',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       titania: {
         roleTitle: 'Titania',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     description: 'is practically generic evil. Gets final say in assassination. If assassin is not present, then evil makes a consensus on who to kill'
@@ -116,23 +131,28 @@ module.exports = {
     sees: {
       morgana: {
         roleTitle: 'Morgana',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       agravaine: {
         roleTitle: 'Agravaine',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       genericEvil: {
         roleTitle: 'Generic Evil',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       assassin: {
         roleTitle: 'Assassin',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       titania: {
         roleTitle: 'Titania',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     description: 'hidden from Merlin'
@@ -143,23 +163,28 @@ module.exports = {
     sees: {
       mordred: {
         roleTitle: 'Mordred',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       agravaine: {
         roleTitle: 'Agravaine',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       genericEvil: {
         roleTitle: 'Generic Evil',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       assassin: {
         roleTitle: 'Assassin',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       titania: {
         roleTitle: 'Titania',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     description: 'appears like Merlin to Percival.'
@@ -170,23 +195,28 @@ module.exports = {
     sees: {
       mordred: {
         roleTitle: 'Mordred',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       morgana: {
         roleTitle: 'Morgana',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       genericEvil: {
         roleTitle: 'Generic Evil',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       assassin: {
         roleTitle: 'Assassin',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       titania: {
         roleTitle: 'Titania',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     description: 'must play Fails; may declare after having been on a successful mission to cause it to Fail instead.'
@@ -234,23 +264,28 @@ module.exports = {
     sees: {
       mordred: {
         roleTitle: 'Mordred',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       morgana: {
         roleTitle: 'Morgana',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       agravaine: {
         roleTitle: 'Agravaine',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       assassin: {
         roleTitle: 'Assassin',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       },
       titania: {
         roleTitle: 'Titania',
-        alignment: 'evil'
+        alignment: 'evil',
+        knowsRole: false
       }
     },
     description: 'An evil Minion of Mordred'
