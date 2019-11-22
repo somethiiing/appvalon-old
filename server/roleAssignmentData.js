@@ -1,31 +1,31 @@
 module.exports = {
   // good
   merlin: {
-    role: 'Merlin',
+    roleTitle: 'Merlin',
     alignment: 'good',
     sees: {
       morgana: {
-        role: 'Morgana',
+        roleTitle: 'Morgana',
         alignment: 'evil'
       },
       agravaine: {
-        role: 'Agravaine',
+        roleTitle: 'Agravaine',
         alignment: 'evil'
       },
       colgrevance: {
-        role: 'Colgrevance',
+        roleTitle: 'Colgrevance',
         alignment: 'evil'
       },
       genericEvil: {
-        role: 'Generic Evil',
+        roleTitle: 'Generic Evil',
         alignment: 'evil'
       },
       assassin: {
-        role: 'Assassin',
+        roleTitle: 'Assassin',
         alignment: 'evil'
       },
       oberon: {
-        role: 'Oberon',
+        roleTitle: 'Oberon',
         alignment: 'evil'
       }
     },
@@ -33,50 +33,50 @@ module.exports = {
     description: 'sees all players that are either Evil (except Mordred and NOberon) or are Lancelot; can be Assassinated.'
   },
   percival: {
-    role: 'Percival',
+    roleTitle: 'Percival',
     alignment: 'good',
     sees: {
       merlin: {
-        role: 'merlin',
+        roleTitle: 'merlin',
         alignment: 'unknown'
       },
       morgana: {
-        role: 'morgana',
+        roleTitle: 'morgana',
         alignment: 'unknown'
       }
     },
     description: 'sees Merlin and Morgana, but cannot distinguish which role each seen player has.'
   },
   tristan: {
-    role: 'Tristan',
+    roleTitle: 'Tristan',
     alignment: 'good',
     sees: {
       iseult: {
-        role: 'iseult',
+        roleTitle: 'iseult',
         alignment: 'good'
       }
     },
     description: 'sees Iseult; always appear together; can be Assassinated as a pair. also known as the lovers or the twins'
   },
   iseult: {
-    role: 'Iseult',
+    roleTitle: 'Iseult',
     alignment: 'good',
     sees: {
       tristan: {
-        role: 'tristan',
+        roleTitle: 'tristan',
         alignment: 'good'
       }
     },
     description: 'sees Tristan; always appear together; can be Assassinated as a pair. also known as the lovers or the twins'
   },
   titania: {
-    role: 'Titania',
+    roleTitle: 'Titania',
     alignment: 'good',
     sees: {},
     description: 'appears as Evil to Evil roles (except Colgrevance).'
   },
   genericGood: {
-    role: 'Generic Good',
+    roleTitle: 'Generic Good',
     alignment: 'good',
     sees: {},
     description: 'doesn\'t see anyone. The loyalest servant of King Arthur'
@@ -84,179 +84,185 @@ module.exports = {
 
   // bad
   assassin: {
-    role: 'Assassin',
+    roleTitle: 'Assassin',
     alignment: 'evil',
     sees: {
       mordred: {
-        role: 'Mordred',
+        roleTitle: 'Mordred',
         alignment: 'evil'
       },
       morgana: {
-        role: 'Morgana',
+        roleTitle: 'Morgana',
         alignment: 'evil'
       },
       agravaine: {
-        role: 'Agravaine',
+        roleTitle: 'Agravaine',
         alignment: 'evil'
       },
       genericEvil: {
-        role: 'Generic Evil',
+        roleTitle: 'Generic Evil',
         alignment: 'evil'
       },
       titania: {
-        role: 'Titania',
+        roleTitle: 'Titania',
         alignment: 'evil'
       }
     },
     description: 'is practically generic evil. Gets final say in assassination. If assassin is not present, then evil makes a consensus on who to kill'
   },
   mordred: {
-    role: 'Mordred',
+    roleTitle: 'Mordred',
     alignment: 'evil',
     sees: {
       morgana: {
-        role: 'Morgana',
+        roleTitle: 'Morgana',
         alignment: 'evil'
       },
       agravaine: {
-        role: 'Agravaine',
+        roleTitle: 'Agravaine',
         alignment: 'evil'
       },
       genericEvil: {
-        role: 'Generic Evil',
+        roleTitle: 'Generic Evil',
         alignment: 'evil'
       },
       assassin: {
-        role: 'Assassin',
+        roleTitle: 'Assassin',
         alignment: 'evil'
       },
       titania: {
-        role: 'Titania',
+        roleTitle: 'Titania',
         alignment: 'evil'
       }
     },
     description: 'hidden from Merlin'
   },
   morgana: {
-    role: 'Morgana',
+    roleTitle: 'Morgana',
     alignment: 'evil',
     sees: {
       mordred: {
-        role: 'Mordred',
+        roleTitle: 'Mordred',
         alignment: 'evil'
       },
       agravaine: {
-        role: 'Agravaine',
+        roleTitle: 'Agravaine',
         alignment: 'evil'
       },
       genericEvil: {
-        role: 'Generic Evil',
+        roleTitle: 'Generic Evil',
         alignment: 'evil'
       },
       assassin: {
-        role: 'Assassin',
+        roleTitle: 'Assassin',
         alignment: 'evil'
       },
       titania: {
-        role: 'Titania',
+        roleTitle: 'Titania',
         alignment: 'evil'
       }
     },
     description: 'appears like Merlin to Percival.'
   },
   agravaine: {
-    role: 'Agravaine',
+    roleTitle: 'Agravaine',
     alignment: 'evil',
     sees: {
       mordred: {
-        role: 'Mordred',
+        roleTitle: 'Mordred',
         alignment: 'evil'
       },
       morgana: {
-        role: 'Morgana',
+        roleTitle: 'Morgana',
         alignment: 'evil'
       },
       genericEvil: {
-        role: 'Generic Evil',
+        roleTitle: 'Generic Evil',
         alignment: 'evil'
       },
       assassin: {
-        role: 'Assassin',
+        roleTitle: 'Assassin',
         alignment: 'evil'
       },
       titania: {
-        role: 'Titania',
+        roleTitle: 'Titania',
         alignment: 'evil'
       }
     },
     description: 'must play Fails; may declare after having been on a successful mission to cause it to Fail instead.'
   },
   colgrevance: {
-    role: 'Colgrevance',
+    roleTitle: 'Colgrevance',
     alignment: 'evil',
     sees: {
       mordred: {
-        role: 'Mordred',
-        alignment: 'evil'
+        roleTitle: 'Mordred',
+        alignment: 'evil',
+        knowsRole: true
       },
       morgana: {
-        role: 'Morgana',
-        alignment: 'evil'
+        roleTitle: 'Morgana',
+        alignment: 'evil',
+        knowsRole: true
       },
       agravaine: {
-        role: 'Agravaine',
-        alignment: 'evil'
+        roleTitle: 'Agravaine',
+        alignment: 'evil',
+        knowsRole: true
       },
       genericEvil: {
-        role: 'Generic Evil',
-        alignment: 'evil'
+        roleTitle: 'Generic Evil',
+        alignment: 'evil',
+        knowsRole: true
       },
       assassin: {
-        role: 'Assassin',
-        alignment: 'evil'
+        roleTitle: 'Assassin',
+        alignment: 'evil',
+        knowsRole: true
       },
       titania: {
-        role: 'Titania',
-        alignment: 'evil'
+        roleTitle: 'Titania',
+        alignment: 'evil',
+        knowsRole: true
       }
     },
     description: 'is hidden from other Evil roles; knows which player has each Evil role.'
   },
   genericEvil: {
-    role: 'Generic Evil',
+    roleTitle: 'Generic Evil',
     alignment: 'evil',
     sees: {
       mordred: {
-        role: 'Mordred',
+        roleTitle: 'Mordred',
         alignment: 'evil'
       },
       morgana: {
-        role: 'Morgana',
+        roleTitle: 'Morgana',
         alignment: 'evil'
       },
       agravaine: {
-        role: 'Agravaine',
+        roleTitle: 'Agravaine',
         alignment: 'evil'
       },
       assassin: {
-        role: 'Assassin',
+        roleTitle: 'Assassin',
         alignment: 'evil'
       },
       titania: {
-        role: 'Titania',
+        roleTitle: 'Titania',
         alignment: 'evil'
       }
     },
     description: 'An evil Minion of Mordred'
   },
   oberon: {
-    role: 'Oberon',
+    roleTitle: 'Oberon',
     alignment: 'evil',
     sees: {},
     description: 'is hidden from other Evil roles, but is visible to Merlin'
   },
   noberon: {
-    role: 'NOberon',
+    roleTitle: 'NOberon',
     alignment: 'evil',
     sees: {},
     description: 'is hidden from other Evil roles and is also hidden from Merlin'
