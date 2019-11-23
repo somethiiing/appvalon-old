@@ -29,6 +29,7 @@ class App extends React.Component {
     //TODO how to handle user exists?
     switch (status) {
       case 'USER_CREATED':
+      case 'USER_EXISTS':
         return isCreatingRoom
           ? (<Containers.CreateRoom />)
           : (<Containers.JoinRoom />);

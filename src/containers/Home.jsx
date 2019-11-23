@@ -9,6 +9,7 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
+    padding: theme.spacing(1),
   },
   textField: {
     marginLeft: theme.spacing(1),
@@ -31,6 +32,13 @@ const useStyles = makeStyles(theme => ({
 
 function Home(props) {
   const classes = useStyles();
+
+  const context = React.useContext(Context);
+
+  React.useEffect(() => {
+    context.setGlobalState({pageTitle: 'Appvalon'});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Context.Consumer>

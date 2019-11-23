@@ -1,23 +1,15 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
 
 import Context from '../../Context';
 import RoomListItem from './RoomListItem';
 
 const useStyles = makeStyles(theme => ({
-  container: {
+  list: {
     display: 'flex',
-    flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  dense: {
-    marginTop: theme.spacing(2),
-  },
-  menu: {
-    width: 200,
+    flexDirection: 'column',
+    width: '100%',
   },
 }));
 
@@ -37,9 +29,9 @@ function RoomList(props) {
   return (
     <Context.Consumer>
     {context => (
-      <div>
+      <List className={classes.list}>
         {values.rooms.map(room => <RoomListItem userName={context.userName} roomName={room} />)}
-      </div>
+      </List>
     )}
     </Context.Consumer>
   );

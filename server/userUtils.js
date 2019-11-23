@@ -61,6 +61,7 @@ const joinRoom = (state, user, room) => {
     state.rooms[room] = instantiatedGame.roomData;
     return { status: 'GAME_START', state };
   }
+  // TODO handle players.length > playerCount == spectator mode (see game info for MVP, roles later)
   return { status: 'JOIN_ROOM_SUCCESS', state };
 }
 

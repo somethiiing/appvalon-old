@@ -13,6 +13,9 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
   },
+  container: {
+    padding: theme.spacing(1),
+  },
   formControl: {
     margin: theme.spacing(3),
   },
@@ -24,8 +27,11 @@ function ProposeTeam(props) {
 
   const [state, setState] = React.useState({});
 
+  const context = React.useContext(Context);
+
   React.useEffect(() => {
     mapPropsToState(props);
+    context.setGlobalState({pageTitle: 'Propose Your Team'});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -37,6 +43,7 @@ function ProposeTeam(props) {
 
   const handleChange = name => event => {
     setState({ ...state, [name]: event.target.checked });
+    //TODO send changes to proposed team to others
   };
 
   const getProposedTeam = () => {

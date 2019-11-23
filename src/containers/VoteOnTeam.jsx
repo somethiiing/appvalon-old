@@ -9,12 +9,24 @@ import Context from '../Context';
 const useStyles = makeStyles(theme => ({
   toggleContainer: {
     margin: theme.spacing(2, 0),
-    // width: '100%',
+    [theme.breakpoints.up('450px')]: {
+      padding: theme.spacing(1),
+    },
+  },
+  textContainer: {
+    padding: theme.spacing(1),
+  },
+  team: {
+    fontSize: 'large',
   },
   root: {
     color: 'rgba(0, 0, 0, .8)',
     width: '50vw',
-    height: '50vh',
+    height: '50vw',
+    [theme.breakpoints.up('450px')]: {
+      width: '10rem',
+      height: '10rem',
+    },
   },
   approve: {
     backgroundColor: 'rgba(0, 111, 194, .5)',
@@ -50,6 +62,11 @@ function VoteOnTeam(props) {
 
   const context = React.useContext(Context);
 
+  React.useEffect(() => {
+    context.setGlobalState({pageTitle: 'Team Vote'});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [vote, setVote] = React.useState(null);
 
    const handleChange = (event, newVote) => {
@@ -60,7 +77,7 @@ function VoteOnTeam(props) {
    const renderKingContent = (context) => {
      const votesReady = props.numVotesReady === context.roomData.playerCount;
      return (
-       <div>
+       <div className={classes.textContainer}>
          <Button variant="outlined" className={classes.button}
            onClick={() => {alert('should set status to START_PROPOSING_TEAM')}}>
              Change Team
@@ -79,7 +96,7 @@ function VoteOnTeam(props) {
     <Context.Consumer>
     {context => (
       <div className={classes.container}>
-        <h3>{context.roomData.kingOrder[0]} has proposed: {context.displayArray(context.roomData.proposedTeam)}</h3>
+        <p className={`${classes.textContainer} ${classes.team}`}><b>{context.roomData.kingOrder[0]} has proposed:</b> {context.displayArray(context.roomData.proposedTeam)}</p>
         <div className={classes.toggleContainer}>
           <ToggleButtonGroup
             value={vote}
