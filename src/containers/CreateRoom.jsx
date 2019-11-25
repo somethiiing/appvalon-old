@@ -9,6 +9,9 @@ import BoardSizeSelect from '../components/CreateRoom/BoardSizeSelect';
 import RolesSelect from '../components/CreateRoom/RolesSelect';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    padding: theme.spacing(1),
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -23,6 +26,11 @@ function CreateRoom(props) {
   const classes = useStyles();
 
   const context = React.useContext(Context);
+
+  React.useEffect(() => {
+    context.setGlobalState({pageTitle: 'Create Room'});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [values, setValues] = React.useState({
     numPeople: 5,
@@ -48,7 +56,6 @@ function CreateRoom(props) {
     <Context.Consumer>
     {context => (
       <div className={classes.container}>
-        <h2>Create A Room</h2>
         <NumPlayersSelect numPeople={values.numPeople} handleChange={handleSelectChange} />
         <LancelotCheckbox isLancelot={values.isLancelot} handleChange={handleCheckboxChange} />
         {values.isLancelot && <BoardSizeSelect board={values.board} handleChange={handleSelectChange} />}

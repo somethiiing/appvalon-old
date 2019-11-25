@@ -8,12 +8,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Context from '../../Context';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
-  formControl: {
-    margin: theme.spacing(3),
-  },
 }));
 
 function RolesSelect(props) {
@@ -64,7 +58,7 @@ function RolesSelect(props) {
         <FormGroup>
           {rolesList.map( role => {
             return (role.isLancelot && !props.showLancelots)
-            ? (<div></div>)
+            ? (<div key={role.codeName}></div>)
             : (<FormControlLabel
               control={<Checkbox checked={state[role.codeName] || false} onChange={handleChange(role.codeName)} value={role.codeName} />}
               label={role.displayName} key={role.codeName}

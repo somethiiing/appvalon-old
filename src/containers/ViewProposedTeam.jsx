@@ -4,22 +4,19 @@ import { makeStyles } from '@material-ui/core/styles';
 import Context from '../Context';
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
   container: {
     padding: theme.spacing(1),
   },
 }));
 
-function WaitForGameStart(props) {
+function ViewProposedTeam(props) {
 
   const classes = useStyles();
 
   const context = React.useContext(Context);
 
   React.useEffect(() => {
-    context.setGlobalState({pageTitle: 'Wait for Players'});
+    context.setGlobalState({pageTitle: 'Proposed Team'});
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -27,18 +24,11 @@ function WaitForGameStart(props) {
     <Context.Consumer>
     {context => (
       <div className={classes.container}>
-        <p><b>Room Name:</b> {context.roomData.roomName}</p>
-        <p><b>Roles:</b> {context.displayArray(context.roomData.selectedRoles)}</p>
-        <p>{context.roomData.players.length}/{context.roomData.playerCount} Players Joined:</p>
-        <ul>
-          {context.roomData.players.map( player =>
-            (<li>{player}</li>)
-          )}
-        </ul>
+        <h3>{context.roomData.kingOrder[0]} has proposed: {context.displayArray(context.roomData.proposedTeam)}</h3>
       </div>
     )}
     </Context.Consumer>
   );
 }
 
-export default WaitForGameStart;
+export default ViewProposedTeam;

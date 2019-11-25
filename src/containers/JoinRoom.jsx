@@ -8,22 +8,8 @@ const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
     flexWrap: 'wrap',
-  },
-  textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-  },
-  dense: {
-    marginTop: theme.spacing(2),
-  },
-  menu: {
-    width: 200,
-  },
-  button: {
-    margin: theme.spacing(1),
-  },
-  input: {
-    display: 'none',
+    padding: theme.spacing(1),
+    width: `100% - ${theme.spacing(1)}`,
   },
 }));
 
@@ -33,14 +19,17 @@ function JoinRoom(props) {
 
   const context = React.useContext(Context);
 
-  context.getRoomList();
+  React.useEffect(() => {
+    context.setGlobalState({pageTitle: 'Join Room'});
+    context.getRoomList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // TODO add choose your role
   return (
     <Context.Consumer>
     {context => (
-      <div>
-        <h2>Choose a Room to Join</h2>
+      <div className={classes.container}>
         <RoomList userName={context.userName} />
       </div>
     )}
