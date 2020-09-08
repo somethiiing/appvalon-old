@@ -94,11 +94,78 @@ function createRoleAssignment(playerList, settings) {
   return {}
 }
 
-function settingsRoleNumberCheck(settings) {
+function settingsRoleNumberCheck(arr,settings) {
   let goodCounter = 0;
   let badCounter = 0;
   let total = 0;
+ 
+  for(i=0; i<arr.length; i++){
+    if(roleData[arr[i]].alignment === 'good'){
+      goodCounter++;
+    }
+    else{
+      badCounter++
+    }
+  }
+  
+  total = goodCounter + badCounter;
+  if(goodCounter===settings.numGood
+    &&badCounter===settings.numEvil
+    &&(total===settings.numPeople)){
+     return 'Number check pass!';
+    }
+  else{
+    return 'Someone fucked up';
+  } 
+}
 
+function generateRoleList(settings){
+  result = []
+  if(!settings.roles){
+    return 'Error: no roles!';
+  }
+  for (const key of Object.keys(settings.roles)) {
+    if (settings.roles[key] === true){
+        if(roleData[key].alignment === 'good'){
+          if(key === 'genericGood'){
+            for(i=0; i<settings.roles.numGenGood; i++){
+              result.push(key)
+            }
+          }
+          else{
+            result.push(key);
+          }
+        }
+        if(roleData[key].alignment === 'evil'){
+          if(key === 'genericEvil'){
+            for(i=0; i<settings.roles.numGenEvil; i++){
+              result.push(key)
+            }
+          }
+          else{
+            result.push(key);
+          }
+        }
+           
+   }
+  }
+  return result;
+}
+
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function assignRoles(playerList,roleList){
+  obj={};
+  for(i=0; i<playerList.length; i++){
+    obj[playerList[i]] = roleList[i];
+  }
+  return obj;
 }
 
 
@@ -114,7 +181,7 @@ const fakeSettings = {
     tristan: false, //bool
     iseult: false, //bool
     titania: false, //bool
-    genGood: true, //bool
+    genericGood: true, //bool
     numGenGood: 2, //num
 
     assassin: true, //bool
@@ -124,10 +191,22 @@ const fakeSettings = {
     colgrevance: false, //bool
     oberon: false, //bool
     noberon: false, //bool
-    genEvil: false, //bool
+    genericEvil: false, //bool
     numGenEvil: 0 //num
   }
 };
 
-const testRoleAssignment = createRoleAssignment(fakePlayerList, fakeSettings);
-console.log(JSON.stringify(testRoleAssignment, null, 2));
+// const testRoleAssignment = createRoleAssignment(fakePlayerList, fakeSettings);
+// console.log(JSON.stringify(testRoleAssignment, null, 2));
+
+
+
+// for (const key of Object.keys(obj)) {
+//   console.log(key, obj[key]);
+// }
+
+roleArr = generateRoleList(fakeSettings);
+console.log(roleArr);
+console.log(settingsRoleNumberCheck(roleArr,fakeSettings));
+shufflePlayerList = shuffle(fakePlayerList);
+console.log(assignRoles(shufflePlayerList,roleArr));
